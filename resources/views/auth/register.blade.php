@@ -37,9 +37,18 @@
         }
 
         .register-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+             text-align: center;
+             margin-bottom: 32px;
+         }
+
+         .logo-container {
+             margin-bottom: 24px;
+         }
+
+         .logo {
+             height: 48px;
+             width: auto;
+         }
 
         .register-header h1 {
             font-size: 24px;
@@ -273,9 +282,12 @@
     <div class="register-container">
         <div class="register-card">
             <div class="register-header">
-                <h1>Create your account</h1>
-                <p>Or <a href="{{ route('login') }}">sign in to your account</a></p>
-            </div>
+             <div class="logo-container">
+                 <img src="{{ asset('assets/brand/sellora-logo.png') }}" alt="Sellora" class="logo">
+             </div>
+             <h1>Create your account</h1>
+             <p>Or <a href="{{ route('login') }}">sign in to your account</a></p>
+         </div>
 
             @if ($errors->any())
                 <div class="alert">

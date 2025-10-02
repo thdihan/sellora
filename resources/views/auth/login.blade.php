@@ -41,6 +41,15 @@
             margin-bottom: 32px;
         }
 
+        .logo-container {
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            height: 48px;
+            width: auto;
+        }
+
         .login-header h1 {
             font-size: 24px;
             font-weight: 600;
@@ -283,9 +292,12 @@
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h1>Sign in to your account</h1>
-                <p>Or <a href="{{ route('register') }}">create an account</a></p>
+            <div class="logo-container">
+                <img src="{{ asset('assets/brand/sellora-logo.png') }}" alt="Sellora" class="logo">
             </div>
+            <h1>Sign in to your account</h1>
+            <p>Or <a href="{{ route('register') }}">create an account</a></p>
+        </div>
 
             @if ($errors->any())
                 <div class="alert">
