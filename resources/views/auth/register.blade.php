@@ -3,170 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Sellora</title>
+    <title>Create your account - Sellora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: linear-gradient(135deg, #e6f2eb 0%, #d0e8d2 50%, #b8dfc2 100%);
+            background-color: #f5f5f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 2rem 0;
+            justify-content: center;
+            padding: 20px;
         }
+
+        .register-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
         .register-card {
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 48px 32px;
+            border: 1px solid #e5e7eb;
         }
+
         .register-header {
-            background: linear-gradient(135deg, #7fb47f 0%, #6ba46b 50%, #5a9a5a 100%);
-            color: white;
-            padding: 2rem;
             text-align: center;
+            margin-bottom: 32px;
         }
-        .register-body {
-            padding: 2rem;
-        }
-        .form-control, .form-select {
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-            padding: 12px 15px;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: #7fb47f;
-            box-shadow: 0 0 0 0.2rem rgba(127, 180, 127, 0.25);
-        }
-        .btn-register {
-            background: linear-gradient(135deg, #7fb47f 0%, #6ba46b 50%, #5a9a5a 100%);
-            border: none;
-            border-radius: 10px;
-            padding: 12px;
+
+        .register-header h1 {
+            font-size: 24px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #1f2937;
+            margin-bottom: 8px;
         }
-        .btn-register:hover {
-            transform: translateY(-2px);
+
+        .register-header p {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 0;
         }
-        .password-input-wrapper {
+
+        .register-header p a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register-header p a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .password-wrapper {
             position: relative;
         }
+
         .password-toggle {
             position: absolute;
-            right: 15px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6c757d;
-            font-size: 16px;
+            color: #6b7280;
             cursor: pointer;
-            transition: color 0.3s ease;
-            z-index: 10;
+            font-size: 16px;
+            transition: color 0.2s ease;
         }
+
         .password-toggle:hover {
-            color: #7fb47f;
-            box-shadow: 0 5px 15px rgba(127, 180, 127, 0.4);
+            color: #374151;
         }
-        .register-footer {
-            background-color: #f8f9fa;
-            border-top: 1px solid #e9ecef;
-            margin: 0;
+
+        .btn-register {
+            width: 100%;
+            background-color: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-bottom: 24px;
         }
-        .logo-container {
+
+        .btn-register:hover {
+            background-color: #5856eb;
+        }
+
+        .btn-register:active {
+            background-color: #4f46e5;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #e5e7eb;
+            z-index: 1;
+        }
+
+        .divider span {
+            background-color: white;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-buttons {
             display: flex;
-            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background-color: white;
+            color: #374151;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .social-btn:hover {
+            background-color: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+        }
+
+        .social-btn i {
+            font-size: 18px;
+        }
+
+        .login-link {
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .login-link a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert i {
+            margin-right: 8px;
+        }
+
+        /* Loading state */
+        .btn-register.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-register.loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            margin-left: 8px;
+            border: 2px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .register-card {
+                padding: 32px 24px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="register-card">
-                    <div class="register-header">
-                        <div class="logo-container mb-3">
-                            <img src="{{ asset('assets/brand/sellora-logo.png') }}" alt="Sellora Logo" class="mx-auto" width="80" height="80" style="border-radius: 15px;">
-                        </div>
-                        <h2 class="mb-0">Join Sellora</h2>
-                        <p class="mb-0 mt-2">Create your account</p>
-                    </div>
-                    <div class="register-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <div>{{ $error }}</div>
-                                @endforeach
-                            </div>
-                        @endif
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-header">
+                <h1>Create your account</h1>
+                <p>Or <a href="{{ route('login') }}">sign in to your account</a></p>
+            </div>
 
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <div class="password-input-wrapper">
-                                        <input type="password" class="form-control" id="password" name="password" required>
-                                        <i class="fas fa-eye password-toggle" id="togglePassword" onclick="togglePasswordVisibility('password')"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                                    <div class="password-input-wrapper">
-                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                                        <i class="fas fa-eye password-toggle" id="togglePasswordConfirmation" onclick="togglePasswordVisibility('password_confirmation')"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="employee_id" class="form-label">Employee ID</label>
-                                <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{ old('employee_id') }}" placeholder="Enter your employee ID">
-                            </div>
-                            
-                            <div class="mb-4">
-                                <label for="designation" class="form-label">Designation (Optional)</label>
-                                <input type="text" class="form-control" id="designation" name="designation" value="{{ old('designation') }}" placeholder="e.g., Senior Sales Manager">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-register w-100 mb-3">Create Account</button>
-                        </form>
-                        
-                        <div class="text-center">
-                            <p class="mb-0">Already have an account? <a href="{{ route('login') }}" class="text-decoration-none">Sign in here</a></p>
+            @if ($errors->any())
+                <div class="alert">
+                    @foreach ($errors->all() as $error)
+                        <div><i class="fas fa-exclamation-circle"></i>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('register') }}" id="registerForm">
+                @csrf
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required placeholder="Enter your email address">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="employee_id" class="form-label">Employee ID</label>
+                    <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{ old('employee_id') }}" placeholder="Enter your employee ID">
+                </div>
+
+                <div class="form-group">
+                    <label for="designation" class="form-label">Designation (Optional)</label>
+                    <input type="text" class="form-control" id="designation" name="designation" value="{{ old('designation') }}" placeholder="e.g., Senior Sales Manager">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+                            <i class="fas fa-eye password-toggle" onclick="togglePassword('password')"></i>
                         </div>
                     </div>
-                    <div class="register-footer">
-                        <div class="text-center py-3">
-                            <small class="text-muted">
-                                 &copy; {{ date('Y') }} Sellora. All rights reserved.<br>
-                                 Developed by <a href="https://www.webnexa.eporichoy.com" target="_blank" class="text-decoration-none" style="color: #7fb47f;">WebNexa</a> 
-                                 a Concern of <a href="https://www.eporichoy.com" target="_blank" class="text-decoration-none" style="color: #7fb47f;">E-Porichoy</a>
-                             </small>
+                    <div class="form-group">
+                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
+                            <i class="fas fa-eye password-toggle" onclick="togglePassword('password_confirmation')"></i>
                         </div>
                     </div>
                 </div>
+
+                <button type="submit" class="btn-register" id="registerBtn">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>Or continue with</span>
+            </div>
+
+            <div class="social-buttons">
+                <a href="#" class="social-btn" onclick="return false;">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-btn" onclick="return false;">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-btn" onclick="return false;">
+                    <i class="fab fa-google"></i>
+                </a>
+            </div>
+
+            <div class="login-link">
+                Already have an account? <a href="{{ route('login') }}">Sign in here</a>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // Password visibility toggle function
-        function togglePasswordVisibility(fieldId) {
+        function togglePassword(fieldId) {
             const passwordField = document.getElementById(fieldId);
-            const toggleIcon = document.querySelector(`#toggle${fieldId.charAt(0).toUpperCase() + fieldId.slice(1).replace('_', '')}`);
+            const toggleIcon = passwordField.nextElementSibling;
             
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
@@ -178,6 +367,13 @@
                 toggleIcon.classList.add('fa-eye');
             }
         }
+
+        // Form submission loading state
+        document.getElementById('registerForm').addEventListener('submit', function() {
+            const btn = document.getElementById('registerBtn');
+            btn.classList.add('loading');
+            btn.textContent = 'Creating Account...';
+        });
     </script>
 </body>
 </html>
