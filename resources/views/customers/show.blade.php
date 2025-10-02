@@ -1,215 +1,211 @@
 @extends('layouts.app')
 
-@section('title', 'Customer Details')
-
 @section('content')
 <div class="container-fluid">
+    <!-- Header Section -->
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Customer Details</h5>
-                    <div class="btn-group">
-                        <a href="{{ route('customers.index') }}" class="btn btn-outline-secondary">
-                            Back
-                        </a>
-                        <a href="{{ route('customers.edit', $customer) }}" class="btn btn-primary">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                    </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h3 mb-0 text-gray-800">Customer Details</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Customers</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $customer->name }}</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="btn-group" role="group">
+                    <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit"></i> Edit Customer
+                    </a>
+                    <a href="{{ route('customers.index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Customer Information Card -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="card-title mb-0 text-primary">
+                        <i class="fas fa-user me-2"></i>Customer Information
+                    </h5>
                 </div>
                 <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="form-label text-muted small">Full Name</label>
+                            <p class="fw-semibold mb-0">{{ $customer->name }}</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label text-muted small">Email Address</label>
+                            <p class="mb-0">{{ $customer->email }}</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label text-muted small">Phone Number</label>
+                            <p class="mb-0">{{ $customer->phone ?? 'Not provided' }}</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label text-muted small">Customer Since</label>
+                            <p class="mb-0">{{ $customer->created_at->format('M d, Y') }}</p>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label text-muted small">Address</label>
+                            <p class="mb-0">{{ $customer->address ?? 'No address provided' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Summary Card -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="card-title mb-0 text-success">
+                        <i class="fas fa-chart-line me-2"></i>Customer Summary
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="text-center p-3 bg-light rounded">
+                                <h4 class="text-primary mb-1">{{ $customer->orders->count() }}</h4>
+                                <small class="text-muted">Total Orders</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3 bg-light rounded">
+                                <h4 class="text-success mb-1">${{ number_format($customer->orders->sum('total_amount'), 2) }}</h4>
+                                <small class="text-muted">Total Spent</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3 bg-light rounded">
+                                <h4 class="text-warning mb-1">${{ number_format($customer->orders->where('status', 'pending')->sum('total_amount'), 2) }}</h4>
+                                <small class="text-muted">Outstanding Due</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3 bg-light rounded">
+                                <h4 class="text-info mb-1">{{ $customer->orders->where('created_at', '>=', now()->subDays(30))->count() }}</h4>
+                                <small class="text-muted">Orders (30 days)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Card -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="card-title mb-0 text-info">
+                        <i class="fas fa-bolt me-2"></i>Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#analyticsModal">
+                            <i class="fas fa-chart-bar me-1"></i>View Analytics
+                        </button>
+                        <a href="{{ route('orders.create', ['customer_id' => $customer->id]) }}" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-plus me-1"></i>Create Order
+                        </a>
+                        <button type="button" class="btn btn-outline-info btn-sm">
+                            <i class="fas fa-envelope me-1"></i>Send Email
+                        </button>
+                        <button type="button" class="btn btn-outline-warning btn-sm">
+                            <i class="fas fa-file-invoice me-1"></i>Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders Card -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0 text-dark">
+                        <i class="fas fa-shopping-cart me-2"></i>Recent Orders
+                    </h5>
+                    <a href="{{ route('orders.index', ['customer_id' => $customer->id]) }}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-eye me-1"></i>View All Orders
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    @if($customer->orders->count() > 0)
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="border-0 fw-semibold">Order ID</th>
+                                        <th class="border-0 fw-semibold">Date</th>
+                                        <th class="border-0 fw-semibold">Items</th>
+                                        <th class="border-0 fw-semibold">Total</th>
+                                        <th class="border-0 fw-semibold">Status</th>
+                                        <th class="border-0 fw-semibold text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($customer->orders->take(10) as $order)
+                                    <tr>
+                                        <td class="fw-semibold text-primary">#{{ $order->id }}</td>
+                                        <td>{{ $order->created_at->format('M d, Y') }}</td>
+                                        <td>{{ $order->order_items->count() }} items</td>
+                                        <td class="fw-semibold">${{ number_format($order->total_amount, 2) }}</td>
+                                        <td>
+                                            @switch($order->status)
+                                                @case('completed')
+                                                    <span class="badge bg-success">Completed</span>
+                                                    @break
+                                                @case('pending')
+                                                    <span class="badge bg-warning">Pending</span>
+                                                    @break
+                                                @case('cancelled')
+                                                    <span class="badge bg-danger">Cancelled</span>
+                                                    @break
+                                                @default
+                                                    <span class="badge bg-secondary">{{ ucfirst($order->status) }}</span>
+                                            @endswitch
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a href="{{ route('orders.show', $order->id) }}" class="btn btn-outline-primary btn-sm" title="View Order">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-outline-secondary btn-sm" title="Edit Order">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="text-center py-5">
+                            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No Orders Found</h5>
+                            <p class="text-muted mb-3">This customer hasn't placed any orders yet.</p>
+                            <a href="{{ route('orders.create', ['customer_id' => $customer->id]) }}" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i>Create First Order
+                            </a>
                         </div>
                     @endif
-
-                    <div class="row">
-                        <!-- Customer Information -->
-                        <div class="col-md-8">
-                            <div class="card h-100">
-                                <div class="card-header">
-                                    <h6 class="mb-0">Customer Information</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label text-muted">Customer Name</label>
-                                                <p class="fw-bold">{{ $customer->name }}</p>
-                                            </div>
-                                            
-                                            @if($customer->shop_name)
-                                                <div class="mb-3">
-                                                    <label class="form-label text-muted">Shop/Business Name</label>
-                                                    <p class="fw-bold">{{ $customer->shop_name }}</p>
-                                                </div>
-                                            @endif
-                                            
-                                            <div class="mb-3">
-                                                <label class="form-label text-muted">Phone Number</label>
-                                                <p>
-                                                    <a href="tel:{{ $customer->phone }}" class="text-decoration-none">
-                                                        <i class="fas fa-phone text-success"></i> {{ $customer->phone }}
-                                                    </a>
-                                                </p>
-                                            </div>
-                                            
-                                            @if($customer->email)
-                                                <div class="mb-3">
-                                                    <label class="form-label text-muted">Email Address</label>
-                                                    <p>
-                                                        <a href="mailto:{{ $customer->email }}" class="text-decoration-none">
-                                                            <i class="fas fa-envelope text-primary"></i> {{ $customer->email }}
-                                                        </a>
-                                                    </p>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            @if($customer->full_address)
-                                                <div class="mb-3">
-                                                    <label class="form-label text-muted">Full Address</label>
-                                                    <p>{{ $customer->full_address }}</p>
-                                                </div>
-                                            @endif
-                                            
-                                            @if($customer->notes)
-                                                <div class="mb-3">
-                                                    <label class="form-label text-muted">Notes</label>
-                                                    <p>{{ $customer->notes }}</p>
-                                                </div>
-                                            @endif
-                                            
-                                            <div class="mb-3">
-                                                <label class="form-label text-muted">Customer Since</label>
-                                                <p>{{ $customer->created_at->format('F d, Y') }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Customer Summary -->
-                        <div class="col-md-4">
-                            <div class="card h-100">
-                                <div class="card-header">
-                                    <h6 class="mb-0">Customer Summary</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="text-center mb-4">
-                                        <div class="mb-3">
-                                            <h4 class="text-primary">{{ $customer->orders->count() }}</h4>
-                                            <small class="text-muted">Total Orders</small>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            @if($outstandingDue > 0)
-                                                <h4 class="text-warning">{{ formatBTD($outstandingDue) }}</h4>
-                                                <small class="text-muted">Outstanding Due</small>
-                                            @else
-                                                <h4 class="text-success">{{ formatBTD(0) }}</h4>
-                                                <small class="text-muted">No Outstanding Due</small>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="d-grid gap-2">
-                                        <a href="{{ route('orders.create', ['customer_id' => $customer->id]) }}" 
-                                           class="btn btn-primary btn-sm">
-                                            <i class="fas fa-plus"></i> New Order
-                                        </a>
-                                        <button type="button" class="btn btn-outline-info btn-sm" 
-                                                onclick="showCustomerSummary({{ $customer->id }})">
-                                            <i class="fas fa-chart-line"></i> View Analytics
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Orders -->
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0">Recent Orders</h6>
-                                    @if($customer->orders->count() > 5)
-                                        <a href="{{ route('orders.index', ['customer_id' => $customer->id]) }}" 
-                                           class="btn btn-sm btn-outline-primary">
-                                            View All Orders
-                                        </a>
-                                    @endif
-                                </div>
-                                <div class="card-body">
-                                    @if($lastFiveOrders->count() > 0)
-                                        <div class="table-responsive">
-                                            <table class="table table-sm table-hover">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th>Order #</th>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
-                                                        <th>Payment Status</th>
-                                                        <th>Total</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($lastFiveOrders as $order)
-                                                        <tr>
-                                                            <td>
-                                                                <a href="{{ route('orders.show', $order) }}" 
-                                                                   class="text-decoration-none fw-bold">
-                                                                    #{{ $order->order_number }}
-                                                                </a>
-                                                            </td>
-                                                            <td>{{ $order->created_at->format('M d, Y') }}</td>
-                                                            <td>
-                                                                <span class="badge bg-{{ $order->status_badge }}">
-                                                                    {{ ucfirst($order->status) }}
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-{{ $order->payment_status_badge }}">
-                                                                    {{ ucfirst($order->payment_status) }}
-                                                                </span>
-                                                            </td>
-                                                            <td class="fw-bold">{{ formatBTD($order->total_amount) }}</td>
-                                                            <td>
-                                                                <a href="{{ route('orders.show', $order) }}" 
-                                                                   class="btn btn-sm btn-outline-primary" title="View Order">
-                                                                    <i class="fas fa-eye"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    @else
-                                        <div class="text-center py-4">
-                                            <div class="text-muted">
-                                                <i class="fas fa-shopping-cart fa-3x mb-3"></i>
-                                                <p class="mb-0">No orders found for this customer.</p>
-                                                <p class="small">
-                                                    <a href="{{ route('orders.create', ['customer_id' => $customer->id]) }}" 
-                                                       class="text-decoration-none">
-                                                        Create the first order
-                                                    </a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -217,238 +213,241 @@
 </div>
 
 <!-- Customer Analytics Modal -->
-<div class="modal fade" id="customerAnalyticsModal" tabindex="-1" aria-labelledby="customerAnalyticsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade" id="analyticsModal" tabindex="-1" aria-labelledby="analyticsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="customerAnalyticsModalLabel">
-                    <i class="fas fa-chart-line"></i> Customer Analytics & Due Summary
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="analyticsModalLabel">
+                    <i class="fas fa-chart-bar me-2"></i>Customer Analytics - {{ $customer->name }}
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="analyticsContent">
-                <div class="text-center">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+            <div class="modal-body">
+                <div id="analyticsContent">
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-muted">Loading analytics data...</p>
                     </div>
-                    <p class="mt-2">Loading customer analytics...</p>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="exportAnalytics()">
+                    <i class="fas fa-download me-1"></i>Export Report
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-function showCustomerSummary(customerId) {
-    // Show the modal
-    const modal = new bootstrap.Modal(document.getElementById('customerAnalyticsModal'));
-    modal.show();
+document.addEventListener('DOMContentLoaded', function() {
+    // Load analytics when modal is shown
+    const analyticsModal = document.getElementById('analyticsModal');
+    if (analyticsModal) {
+        analyticsModal.addEventListener('show.bs.modal', function() {
+            loadCustomerAnalytics();
+        });
+    }
+});
+
+function loadCustomerAnalytics() {
+    const customerId = {{ $customer->id }};
+    const analyticsContent = document.getElementById('analyticsContent');
     
-    // Reset modal content to loading state
-    document.getElementById('analyticsContent').innerHTML = `
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-2">Loading customer analytics...</p>
-        </div>
-    `;
-    
-    // Fetch customer summary data
-    fetch(`/api/customers/${customerId}/summary`)
+    fetch(`/customers/${customerId}/analytics`)
         .then(response => response.json())
         .then(data => {
-            displayCustomerAnalytics(data);
+            analyticsContent.innerHTML = `
+                <div class="row g-4">
+                    <!-- Order Trends -->
+                    <div class="col-md-6">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title text-primary">
+                                    <i class="fas fa-chart-line me-1"></i>Order Trends
+                                </h6>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h4 class="mb-0">${data.monthly_orders || 0}</h4>
+                                        <small class="text-muted">This Month</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge ${data.trend_direction === 'up' ? 'bg-success' : 'bg-danger'}">
+                                            <i class="fas fa-arrow-${data.trend_direction === 'up' ? 'up' : 'down'}"></i>
+                                            ${data.trend_percentage || 0}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Average Order Value -->
+                    <div class="col-md-6">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title text-success">
+                                    <i class="fas fa-dollar-sign me-1"></i>Average Order Value
+                                </h6>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h4 class="mb-0">$${data.avg_order_value || '0.00'}</h4>
+                                        <small class="text-muted">Per Order</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aging Analysis -->
+                    <div class="col-12">
+                        <div class="card border-0">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0 text-warning">
+                                    <i class="fas fa-clock me-1"></i>Aging Analysis
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-3">
+                                        <h5 class="text-success">$${data.aging_0_30 || '0.00'}</h5>
+                                        <small class="text-muted">0-30 Days</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <h5 class="text-warning">$${data.aging_31_60 || '0.00'}</h5>
+                                        <small class="text-muted">31-60 Days</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <h5 class="text-danger">$${data.aging_61_90 || '0.00'}</h5>
+                                        <small class="text-muted">61-90 Days</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <h5 class="text-dark">$${data.aging_90_plus || '0.00'}</h5>
+                                        <small class="text-muted">90+ Days</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment History -->
+                    <div class="col-md-6">
+                        <div class="card border-0">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0 text-info">
+                                    <i class="fas fa-credit-card me-1"></i>Payment History
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <small class="text-muted">On-time Payments</small>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-success" style="width: ${data.ontime_payment_rate || 0}%"></div>
+                                    </div>
+                                    <small class="text-success">${data.ontime_payment_rate || 0}%</small>
+                                </div>
+                                <div class="mb-2">
+                                    <small class="text-muted">Late Payments</small>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: ${data.late_payment_rate || 0}%"></div>
+                                    </div>
+                                    <small class="text-warning">${data.late_payment_rate || 0}%</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions -->
+                    <div class="col-md-6">
+                        <div class="card border-0">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0 text-dark">
+                                    <i class="fas fa-exchange-alt me-1"></i>Recent Transactions
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group list-group-flush">
+                                    ${data.recent_transactions ? data.recent_transactions.map(transaction => `
+                                        <div class="list-group-item border-0 px-0 py-2">
+                                            <div class="d-flex justify-content-between">
+                                                <small class="text-muted">${transaction.date}</small>
+                                                <small class="fw-semibold ${transaction.amount > 0 ? 'text-success' : 'text-danger'}">
+                                                    ${transaction.amount > 0 ? '+' : ''}$${Math.abs(transaction.amount).toFixed(2)}
+                                                </small>
+                                            </div>
+                                            <small class="text-dark">${transaction.description}</small>
+                                        </div>
+                                    `).join('') : '<p class="text-muted mb-0">No recent transactions</p>'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
         })
         .catch(error => {
-            console.error('Error fetching customer summary:', error);
-            document.getElementById('analyticsContent').innerHTML = `
-                <div class="alert alert-danger">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Error loading customer analytics. Please try again.
+            console.error('Error loading analytics:', error);
+            analyticsContent.innerHTML = `
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Unable to load analytics data. Please try again later.
                 </div>
             `;
         });
 }
 
-function displayCustomerAnalytics(data) {
-    const dueCalc = data.due_calculation;
-    const aging = dueCalc.aging_analysis;
-    const credit = dueCalc.credit_summary;
-    const payment = dueCalc.payment_history;
-    
-    const content = `
-        <div class="row">
-            <!-- Outstanding Summary -->
-            <div class="col-md-6 mb-4">
-                <div class="card border-primary">
-                    <div class="card-header bg-primary text-white">
-                        <h6 class="mb-0"><i class="fas fa-money-bill-wave"></i> Outstanding Summary</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-6">
-                                <h4 class="text-primary">৳${parseFloat(dueCalc.total_outstanding).toLocaleString()}</h4>
-                                <small class="text-muted">Total Outstanding</small>
-                            </div>
-                            <div class="col-6">
-                                <h4 class="${credit.is_over_limit ? 'text-danger' : 'text-success'}">৳${parseFloat(credit.credit_available).toLocaleString()}</h4>
-                                <small class="text-muted">Credit Available</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Credit Summary -->
-            <div class="col-md-6 mb-4">
-                <div class="card border-info">
-                    <div class="card-header bg-info text-white">
-                        <h6 class="mb-0"><i class="fas fa-credit-card"></i> Credit Summary</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-2">
-                            <small class="text-muted">Credit Limit:</small>
-                            <strong class="float-end">৳${parseFloat(credit.credit_limit).toLocaleString()}</strong>
-                        </div>
-                        <div class="mb-2">
-                            <small class="text-muted">Credit Used:</small>
-                            <strong class="float-end">৳${parseFloat(credit.credit_used).toLocaleString()}</strong>
-                        </div>
-                        <div class="mb-3">
-                            <small class="text-muted">Utilization:</small>
-                            <strong class="float-end ${credit.credit_utilization_percentage > 80 ? 'text-danger' : 'text-success'}">${credit.credit_utilization_percentage}%</strong>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar ${credit.credit_utilization_percentage > 80 ? 'bg-danger' : 'bg-success'}" 
-                                 style="width: ${Math.min(credit.credit_utilization_percentage, 100)}%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <!-- Aging Analysis -->
-            <div class="col-md-8 mb-4">
-                <div class="card border-warning">
-                    <div class="card-header bg-warning text-dark">
-                        <h6 class="mb-0"><i class="fas fa-clock"></i> Aging Analysis</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Period</th>
-                                        <th class="text-end">Amount</th>
-                                        <th class="text-center">%</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Current (0-30 days)</td>
-                                        <td class="text-end">৳${parseFloat(aging.current).toLocaleString()}</td>
-                                        <td class="text-center">${dueCalc.total_outstanding > 0 ? Math.round((aging.current / dueCalc.total_outstanding) * 100) : 0}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>31-60 days</td>
-                                        <td class="text-end">৳${parseFloat(aging['30_days']).toLocaleString()}</td>
-                                        <td class="text-center">${dueCalc.total_outstanding > 0 ? Math.round((aging['30_days'] / dueCalc.total_outstanding) * 100) : 0}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>61-90 days</td>
-                                        <td class="text-end text-warning">৳${parseFloat(aging['60_days']).toLocaleString()}</td>
-                                        <td class="text-center">${dueCalc.total_outstanding > 0 ? Math.round((aging['60_days'] / dueCalc.total_outstanding) * 100) : 0}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>91-120 days</td>
-                                        <td class="text-end text-danger">৳${parseFloat(aging['90_days']).toLocaleString()}</td>
-                                        <td class="text-center">${dueCalc.total_outstanding > 0 ? Math.round((aging['90_days'] / dueCalc.total_outstanding) * 100) : 0}%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Over 120 days</td>
-                                        <td class="text-end text-danger fw-bold">৳${parseFloat(aging.over_120).toLocaleString()}</td>
-                                        <td class="text-center">${dueCalc.total_outstanding > 0 ? Math.round((aging.over_120 / dueCalc.total_outstanding) * 100) : 0}%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Payment History -->
-            <div class="col-md-4 mb-4">
-                <div class="card border-success">
-                    <div class="card-header bg-success text-white">
-                        <h6 class="mb-0"><i class="fas fa-history"></i> Payment History</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <small class="text-muted">Last 6 Months Paid:</small>
-                            <h5 class="text-success">৳${parseFloat(payment.total_paid_6_months).toLocaleString()}</h5>
-                        </div>
-                        <div class="mb-3">
-                            <small class="text-muted">Payment Count:</small>
-                            <strong class="float-end">${payment.payment_count_6_months}</strong>
-                        </div>
-                        <div class="mb-3">
-                            <small class="text-muted">Average Payment:</small>
-                            <strong class="float-end">৳${parseFloat(payment.average_payment).toLocaleString()}</strong>
-                        </div>
-                        <div>
-                            <small class="text-muted">Last Payment:</small>
-                            <strong class="float-end">${payment.last_payment_date ? new Date(payment.last_payment_date).toLocaleDateString() : 'N/A'}</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Recent Transactions -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="mb-0"><i class="fas fa-list"></i> Recent Transactions</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Description</th>
-                                        <th class="text-end">Amount</th>
-                                        <th class="text-center">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${dueCalc.recent_transactions.map(transaction => `
-                                        <tr>
-                                            <td>${new Date(transaction.date).toLocaleDateString()}</td>
-                                            <td><span class="badge bg-${transaction.type === 'order' ? 'primary' : 'info'}">${transaction.type}</span></td>
-                                            <td>${transaction.description}</td>
-                                            <td class="text-end">৳${parseFloat(transaction.amount).toLocaleString()}</td>
-                                            <td class="text-center">
-                                                <span class="badge bg-${transaction.status === 'paid' ? 'success' : transaction.status === 'pending' ? 'warning' : 'secondary'}">
-                                                    ${transaction.status}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.getElementById('analyticsContent').innerHTML = content;
+function exportAnalytics() {
+    const customerId = {{ $customer->id }};
+    window.open(`/customers/${customerId}/analytics/export`, '_blank');
 }
 </script>
+
+<style>
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.table th {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.875rem;
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.progress {
+    background-color: #e9ecef;
+}
+
+.modal-header.bg-primary {
+    border-bottom: none;
+}
+
+.breadcrumb {
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+    color: #6c757d;
+}
+</style>
 @endsection
