@@ -19,101 +19,98 @@
 @endif
 
 <!-- Stats Cards -->
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mb-6">
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 mb-8">
     <!-- Customers Card -->
-    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-            <svg class="fill-primary dark:fill-white" width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11 0C7.13401 0 4 3.13401 4 7C4 10.866 7.13401 14 11 14C14.866 14 18 10.866 18 7C18 3.13401 14.866 0 11 0ZM11 12C8.23858 12 6 9.76142 6 7C6 4.23858 8.23858 2 11 2C13.7614 2 16 4.23858 16 7C16 9.76142 13.7614 12 11 12Z" fill=""/>
-                <path d="M1.5 16C1.22386 16 1 15.7761 1 15.5C1 11.9101 3.91015 9 7.5 9H14.5C18.0899 9 21 11.9101 21 15.5C21 15.7761 20.7761 16 20.5 16H1.5Z" fill=""/>
-            </svg>
-        </div>
-        <div class="mt-4 flex items-end justify-between">
-            <div>
-                <h4 class="text-title-md font-bold text-black dark:text-white">
-                    3,782
-                </h4>
-                <span class="text-sm font-medium">Customers</span>
+    <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+            <div class="flex-1">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fas fa-users text-white text-lg"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-1">{{ number_format($dashboardCards['customers']['count']) }}</h3>
+                <p class="text-gray-600 text-sm font-medium">Total Customers</p>
             </div>
-            <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
-                4.35%
-                <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z" fill=""/>
-                </svg>
-            </span>
+            <div class="text-right">
+                <div class="flex items-center {{ $dashboardCards['customers']['growth'] >= 0 ? 'text-green-500' : 'text-red-500' }} text-sm font-semibold">
+                    <i class="fas {{ $dashboardCards['customers']['growth'] >= 0 ? 'fa-arrow-up' : 'fa-arrow-down' }} text-xs mr-1"></i>
+                    {{ abs($dashboardCards['customers']['growth']) }}%
+                </div>
+                <p class="text-xs text-gray-500 mt-1">vs last month</p>
+            </div>
         </div>
     </div>
 
     <!-- Orders Card -->
-    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-            <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.7531 16.4312C10.3781 16.4312 9.27808 17.5312 9.27808 18.9062C9.27808 20.2812 10.3781 21.3812 11.7531 21.3812C13.1281 21.3812 14.2281 20.2812 14.2281 18.9062C14.2281 17.5656 13.1281 16.4312 11.7531 16.4312Z" fill=""/>
-                <path d="M5.22183 16.4312C3.84683 16.4312 2.74683 17.5312 2.74683 18.9062C2.74683 20.2812 3.84683 21.3812 5.22183 21.3812C6.59683 21.3812 7.69683 20.2812 7.69683 18.9062C7.69683 17.5656 6.59683 16.4312 5.22183 16.4312Z" fill=""/>
-                <path d="M19.0062 0.618744H17.15L14.25 11.1187H2.37498L0.843732 2.29999H0.0624976C-0.312502 2.29999 -0.562502 2.04999 -0.562502 1.67499C-0.562502 1.29999 -0.312502 1.04999 0.0624976 1.04999H1.53123C1.90623 1.04999 2.15623 1.29999 2.15623 1.67499L3.68748 10.4937H13.5L16.0875 1.04999H19.0062C19.3812 1.04999 19.6312 1.29999 19.6312 1.67499C19.6312 2.04999 19.3812 2.29999 19.0062 2.29999V0.618744Z" fill=""/>
-            </svg>
-        </div>
-        <div class="mt-4 flex items-end justify-between">
-            <div>
-                <h4 class="text-title-md font-bold text-black dark:text-white">
-                    5,359
-                </h4>
-                <span class="text-sm font-medium">Orders</span>
+    <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+            <div class="flex-1">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fas fa-shopping-cart text-white text-lg"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-1">{{ number_format($dashboardCards['orders']['count']) }}</h3>
+                <p class="text-gray-600 text-sm font-medium">Total Orders</p>
             </div>
-            <span class="flex items-center gap-1 text-sm font-medium text-meta-5">
-                2.59%
-                <svg class="fill-meta-5" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.64284 7.69237L9.09102 4.33987L10 5.22362L5 10.0849L-8.98488e-07 5.22362L0.908973 4.33987L4.35716 7.69237L4.35716 0.0848701L5.64284 0.0848701L5.64284 7.69237Z" fill=""/>
-                </svg>
-            </span>
+            <div class="text-right">
+                <div class="flex items-center {{ $dashboardCards['orders']['growth'] >= 0 ? 'text-green-500' : 'text-red-500' }} text-sm font-semibold">
+                    <i class="fas {{ $dashboardCards['orders']['growth'] >= 0 ? 'fa-arrow-up' : 'fa-arrow-down' }} text-xs mr-1"></i>
+                    {{ abs($dashboardCards['orders']['growth']) }}%
+                </div>
+                <p class="text-xs text-gray-500 mt-1">vs last month</p>
+            </div>
         </div>
     </div>
 
     <!-- Monthly Target Card -->
-    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-            <svg class="fill-primary dark:fill-white" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21.1063 18.0469L19.3875 3.23126C19.2157 1.71876 17.9438 0.584381 16.3969 0.584381H5.56878C4.05628 0.584381 2.78441 1.71876 2.57816 3.23126L0.859406 18.0469C0.756281 18.9063 1.03128 19.7313 1.61566 20.3844C2.20003 21.0375 2.99066 21.3813 3.85003 21.3813H18.1157C18.975 21.3813 19.8 21.0031 20.35 20.3844C20.9344 19.7313 21.2094 18.9063 21.1063 18.0469Z" fill=""/>
-            </svg>
-        </div>
-        <div class="mt-4 flex items-end justify-between">
-            <div>
-                <h4 class="text-title-md font-bold text-black dark:text-white">
-                    75.55%
-                </h4>
-                <span class="text-sm font-medium">Monthly Target</span>
+    <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+            <div class="flex-1">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fas fa-bullseye text-white text-lg"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-1">{{ number_format($dashboardCards['monthly_target']['percentage'], 2) }}%</h3>
+                <p class="text-gray-600 text-sm font-medium">Monthly Target</p>
             </div>
-            <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
-                4.35%
-                <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z" fill=""/>
-                </svg>
-            </span>
+            <div class="text-right">
+                <div class="flex items-center {{ $dashboardCards['monthly_target']['growth'] >= 0 ? 'text-green-500' : 'text-red-500' }} text-sm font-semibold">
+                    <i class="fas {{ $dashboardCards['monthly_target']['growth'] >= 0 ? 'fa-arrow-up' : 'fa-arrow-down' }} text-xs mr-1"></i>
+                    {{ abs($dashboardCards['monthly_target']['growth']) }}%
+                </div>
+                <p class="text-xs text-gray-500 mt-1">vs last month</p>
+            </div>
+        </div>
+        <!-- Progress Bar -->
+        <div class="mt-4">
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full" style="width: {{ min($dashboardCards['monthly_target']['percentage'], 100) }}%"></div>
+            </div>
         </div>
     </div>
 
     <!-- Revenue Card -->
-    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-            <svg class="fill-primary dark:fill-white" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.18418 8.03751C9.31543 8.03751 11.0686 6.35313 11.0686 4.25626C11.0686 2.15938 9.31543 0.475006 7.18418 0.475006C5.05293 0.475006 3.2998 2.15938 3.2998 4.25626C3.2998 6.35313 5.05293 8.03751 7.18418 8.03751Z" fill=""/>
-                <path d="M15.8124 9.6875C17.6687 9.6875 19.1468 8.24375 19.1468 6.42188C19.1468 4.6 17.6343 3.15625 15.8124 3.15625C13.9905 3.15625 12.478 4.6 12.478 6.42188C12.478 8.24375 13.9905 9.6875 15.8124 9.6875Z" fill=""/>
-                <path d="M15.9843 10.0313H15.6749C14.6437 10.0313 13.6468 10.3406 12.7781 10.8563C11.8593 9.61876 10.3812 8.79376 8.73115 8.79376H5.67178C2.85303 8.82814 0.618652 11.0625 0.618652 13.8469V16.3219C0.618652 17.0406 1.13428 17.5563 1.85303 17.5563H8.97178C9.69053 17.5563 10.2062 17.0406 10.2062 16.3219V15.2906C10.2062 14.2594 10.9593 13.4719 11.9562 13.4719C12.9187 13.4719 13.6718 14.2594 13.6718 15.2906V16.3219C13.6718 17.0406 14.1874 17.5563 14.9062 17.5563H20.4218C21.1405 17.5563 21.6562 17.0406 21.6562 16.3219V14.9844C21.6218 12.0969 19.2124 10.0313 15.9843 10.0313Z" fill=""/>
-            </svg>
-        </div>
-        <div class="mt-4 flex items-end justify-between">
-            <div>
-                <h4 class="text-title-md font-bold text-black dark:text-white">
-                    ৳{{ number_format($stats['total_expenses']['total_amount'] ?? 245000, 0) }}
-                </h4>
-                <span class="text-sm font-medium">Revenue</span>
+    <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+            <div class="flex-1">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fas fa-dollar-sign text-white text-lg"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-1">${{ number_format($dashboardCards['revenue']['amount'], 2) }}</h3>
+                <p class="text-gray-600 text-sm font-medium">Total Revenue</p>
             </div>
-            <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
-                2.59%
-                <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z" fill=""/>
-                </svg>
-            </span>
+            <div class="text-right">
+                <div class="flex items-center {{ $dashboardCards['revenue']['growth'] >= 0 ? 'text-green-500' : 'text-red-500' }} text-sm font-semibold">
+                    <i class="fas {{ $dashboardCards['revenue']['growth'] >= 0 ? 'fa-arrow-up' : 'fa-arrow-down' }} text-xs mr-1"></i>
+                    {{ abs($dashboardCards['revenue']['growth']) }}%
+                </div>
+                <p class="text-xs text-gray-500 mt-1">vs last month</p>
+            </div>
         </div>
     </div>
 </div>

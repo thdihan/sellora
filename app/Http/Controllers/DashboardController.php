@@ -19,6 +19,7 @@ use App\Models\Order;
 use App\Models\Expense;
 use App\Models\Bill;
 use App\Models\User;
+use App\Models\Customer;
 use App\Models\SalesTarget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +62,10 @@ class DashboardController extends Controller
             // Get date ranges for statistics
             $currentMonth = Carbon::now()->startOfMonth();
             $lastMonth = Carbon::now()->subMonth()->startOfMonth();
+            $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth();
+            
+            // Dashboard card statistics
+            $dashboardCards = $this->_getDashboardCardStats($user, $role);
             
             // Base statistics available to all users with error handling
             $stats = [
@@ -85,7 +90,7 @@ class DashboardController extends Controller
             
             return view(
                 'dashboard',
-                compact('stats', 'roleData', 'targetData', 'chartData', 'recentActivities', 'user', 'role')
+                compact('stats', 'roleData', 'targetData', 'chartData', 'recentActivities', 'user', 'role', 'dashboardCards')
             );
         } catch (\Exception $e) {
             Log::error('Dashboard loading error: ' . $e->getMessage());
@@ -93,6 +98,12 @@ class DashboardController extends Controller
             // Return dashboard with default values on error
             $user = Auth::user();
             $role = $user->role ?? 'user';
+            $dashboardCards = [
+                'customers' => ['count' => 0, 'growth' => 0],
+                'orders' => ['count' => 0, 'growth' => 0],
+                'monthly_target' => ['percentage' => 0, 'growth' => 0],
+                'revenue' => ['amount' => 0, 'growth' => 0]
+            ];
             $stats = [
                 'total_orders' => ['total' => 0, 'this_month' => 0, 'pending' => 0, 'approved' => 0, 'completed' => 0],
                 'total_expenses' => ['total' => 0, 'total_amount' => 0, 'this_month_amount' => 0, 'pending' => 0, 'approved' => 0, 'paid' => 0],
@@ -107,7 +118,7 @@ class DashboardController extends Controller
             $targetData = [];
             return view(
                 'dashboard',
-                compact('stats', 'roleData', 'targetData', 'chartData', 'recentActivities', 'user', 'role')
+                compact('stats', 'roleData', 'targetData', 'chartData', 'recentActivities', 'user', 'role', 'dashboardCards')
             )->with('error', 'Some dashboard data could not be loaded. Please refresh the page.');
         }
     }
@@ -469,4 +480,142 @@ class DashboardController extends Controller
         
         return array_slice($activities, 0, 10);
     }
+    
+    /**
+     * Get dashboard card statistics
+     *
+     * Calculates statistics for the main dashboard cards: Customers, Orders, Monthly Target, Revenue.
+     *
+     * @param \App\Models\User $user The authenticated user
+     * @param string           $role The user's role
+     *
+     * @return array Dashboard card statistics array
+     */
+    private function _getDashboardCardStats($user, $role)
+    {
+        $currentMonth = Carbon::now()->startOfMonth();
+        $lastMonth = Carbon::now()->subMonth()->startOfMonth();
+        $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth();
+        
+        // Customer statistics
+        $totalCustomers = Customer::count();
+        $thisMonthCustomers = Customer::where('created_at', '>=', $currentMonth)->count();
+        $lastMonthCustomers = Customer::whereBetween('created_at', [$lastMonth, $lastMonthEnd])->count();
+        $customerGrowth = $lastMonthCustomers > 0 ? 
+            round((($thisMonthCustomers - $lastMonthCustomers) / $lastMonthCustomers) * 100, 1) : 
+            ($thisMonthCustomers > 0 ? 100 : 0);
+        
+        // Order statistics
+        $orderQuery = Order::query();
+        if ($role !== 'Admin') {
+            $orderQuery->where('user_id', $user->id);
+        }
+        
+        $totalOrders = $orderQuery->count();
+        $thisMonthOrders = $orderQuery->where('created_at', '>=', $currentMonth)->count();
+        $lastMonthOrders = $orderQuery->whereBetween('created_at', [$lastMonth, $lastMonthEnd])->count();
+        $orderGrowth = $lastMonthOrders > 0 ? 
+            round((($thisMonthOrders - $lastMonthOrders) / $lastMonthOrders) * 100, 1) : 
+            ($thisMonthOrders > 0 ? 100 : 0);
+        
+        // Revenue statistics
+        $revenueQuery = Order::where('status', 'completed');
+        if ($role !== 'Admin') {
+            $revenueQuery->where('user_id', $user->id);
+        }
+        
+        $totalRevenue = $revenueQuery->sum('total_amount') ?? 0;
+        $thisMonthRevenue = $revenueQuery->where('created_at', '>=', $currentMonth)->sum('total_amount') ?? 0;
+        $lastMonthRevenue = $revenueQuery->whereBetween('created_at', [$lastMonth, $lastMonthEnd])->sum('total_amount') ?? 0;
+        $revenueGrowth = $lastMonthRevenue > 0 ? 
+            round((($thisMonthRevenue - $lastMonthRevenue) / $lastMonthRevenue) * 100, 1) : 
+            ($thisMonthRevenue > 0 ? 100 : 0);
+        
+        // Monthly target statistics
+        $targetData = $this->_getTargetData($user);
+        $monthlyTargetPercentage = 0;
+        $targetGrowth = 0;
+        
+        if ($targetData['has_target'] && isset($targetData['monthly'])) {
+            $monthlyTargetPercentage = $targetData['monthly']['percentage'] ?? 0;
+            
+            // Calculate target growth based on previous month's achievement
+            $lastMonthTargetData = $this->_getLastMonthTargetData($user);
+            if ($lastMonthTargetData > 0) {
+                $targetGrowth = round((($monthlyTargetPercentage - $lastMonthTargetData) / $lastMonthTargetData) * 100, 1);
+            } else {
+                $targetGrowth = $monthlyTargetPercentage > 0 ? 100 : 0;
+            }
+        }
+        
+        return [
+            'customers' => [
+                'count' => $totalCustomers,
+                'growth' => $customerGrowth
+            ],
+            'orders' => [
+                'count' => $totalOrders,
+                'growth' => $orderGrowth
+            ],
+            'monthly_target' => [
+                'percentage' => $monthlyTargetPercentage,
+                'growth' => $targetGrowth
+            ],
+            'revenue' => [
+                'amount' => $totalRevenue,
+                'growth' => $revenueGrowth
+            ]
+        ];
+    }
+    
+    /**
+     * Get last month's target achievement percentage
+     *
+     * @param \App\Models\User $user The authenticated user
+     *
+     * @return float Last month's target achievement percentage
+     */
+    private function _getLastMonthTargetData($user)
+    {
+        try {
+            $lastMonth = Carbon::now()->subMonth()->month;
+            $currentYear = Carbon::now()->year;
+            
+            $target = SalesTarget::where('assigned_to_user_id', $user->id)
+                ->where('target_year', $currentYear)
+                ->first();
+            
+            if (!$target) {
+                return 0;
+            }
+            
+            $monthlyTargetField = [
+                1 => 'january_target', 2 => 'february_target', 3 => 'march_target',
+                4 => 'april_target', 5 => 'may_target', 6 => 'june_target',
+                7 => 'july_target', 8 => 'august_target', 9 => 'september_target',
+                10 => 'october_target', 11 => 'november_target', 12 => 'december_target'
+            ];
+            
+            $lastMonthTarget = $target->{$monthlyTargetField[$lastMonth]} ?? 0;
+            
+            if ($lastMonthTarget <= 0) {
+                return 0;
+            }
+            
+            // Get actual sales for last month
+            $lastMonthStart = Carbon::now()->subMonth()->startOfMonth();
+            $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth();
+            
+            $actualSales = Order::where('user_id', $user->id)
+                ->where('status', 'completed')
+                ->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])
+                ->sum('total_amount') ?? 0;
+            
+            return round(($actualSales / $lastMonthTarget) * 100, 1);
+        } catch (\Exception $e) {
+            Log::error('Error getting last month target data: ' . $e->getMessage());
+            return 0;
+        }
+    }
+
 }
