@@ -1,0 +1,221 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-01-15T10:30:25Z",
+    "test_duration_seconds": 180,
+    "total_requests": 47,
+    "successful_requests": 42,
+    "failed_requests": 5,
+    "success_rate": 89.4
+  },
+  "api_calls_by_module": {
+    "dashboard": {
+      "total_calls": 5,
+      "successful": 5,
+      "failed": 0,
+      "average_response_time_ms": 145,
+      "calls": [
+        {
+          "endpoint": "/dashboard",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 142,
+          "timestamp": "2025-01-15T10:30:25Z"
+        },
+        {
+          "endpoint": "/api/dashboard/stats",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 156,
+          "timestamp": "2025-01-15T10:30:26Z"
+        }
+      ]
+    },
+    "orders": {
+      "total_calls": 6,
+      "successful": 6,
+      "failed": 0,
+      "average_response_time_ms": 167,
+      "calls": [
+        {
+          "endpoint": "/orders",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 178,
+          "timestamp": "2025-01-15T10:30:27Z"
+        },
+        {
+          "endpoint": "/orders/create",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 145,
+          "timestamp": "2025-01-15T10:30:28Z"
+        },
+        {
+          "endpoint": "/orders",
+          "method": "POST",
+          "status_code": 201,
+          "response_time_ms": 189,
+          "timestamp": "2025-01-15T10:30:29Z"
+        }
+      ]
+    },
+    "bills": {
+      "total_calls": 7,
+      "successful": 5,
+      "failed": 2,
+      "average_response_time_ms": 234,
+      "calls": [
+        {
+          "endpoint": "/bills",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 156,
+          "timestamp": "2025-01-15T10:30:30Z"
+        },
+        {
+          "endpoint": "/bills",
+          "method": "POST",
+          "status_code": 422,
+          "response_time_ms": 123,
+          "timestamp": "2025-01-15T10:30:31Z",
+          "error": "Validation failed - attachment required"
+        },
+        {
+          "endpoint": "/bills",
+          "method": "POST",
+          "status_code": 201,
+          "response_time_ms": 267,
+          "timestamp": "2025-01-15T10:30:32Z"
+        }
+      ]
+    },
+    "products": {
+      "total_calls": 8,
+      "successful": 7,
+      "failed": 1,
+      "average_response_time_ms": 198,
+      "calls": [
+        {
+          "endpoint": "/products",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 167,
+          "timestamp": "2025-01-15T10:30:33Z"
+        },
+        {
+          "endpoint": "/products/import/excel",
+          "method": "GET",
+          "status_code": 404,
+          "response_time_ms": 45,
+          "timestamp": "2025-01-15T10:30:34Z",
+          "error": "Route not found"
+        }
+      ]
+    },
+    "settings": {
+      "total_calls": 12,
+      "successful": 11,
+      "failed": 1,
+      "average_response_time_ms": 2156,
+      "calls": [
+        {
+          "endpoint": "/settings",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 145,
+          "timestamp": "2025-01-15T10:30:35Z"
+        },
+        {
+          "endpoint": "/settings/email/test",
+          "method": "POST",
+          "status_code": 408,
+          "response_time_ms": 30000,
+          "timestamp": "2025-01-15T10:30:36Z",
+          "error": "Request timeout - SMTP connection failed"
+        }
+      ]
+    },
+    "presentations": {
+      "total_calls": 3,
+      "successful": 2,
+      "failed": 1,
+      "average_response_time_ms": 1234,
+      "calls": [
+        {
+          "endpoint": "/presentations/download/pdf",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 1456,
+          "timestamp": "2025-01-15T10:30:37Z",
+          "file_size_bytes": 45678
+        },
+        {
+          "endpoint": "/presentations/download/word",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 1234,
+          "timestamp": "2025-01-15T10:30:38Z",
+          "file_size_bytes": 0,
+          "error": "Empty file generated"
+        }
+      ]
+    },
+    "notifications": {
+      "total_calls": 2,
+      "successful": 1,
+      "failed": 1,
+      "average_response_time_ms": 15123,
+      "calls": [
+        {
+          "endpoint": "/notifications/test-send",
+          "method": "POST",
+          "status_code": 408,
+          "response_time_ms": 30000,
+          "timestamp": "2025-01-15T10:30:39Z",
+          "error": "PHPMailer timeout"
+        }
+      ]
+    },
+    "import_export": {
+      "total_calls": 4,
+      "successful": 4,
+      "failed": 0,
+      "average_response_time_ms": 567,
+      "calls": [
+        {
+          "endpoint": "/import",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 234,
+          "timestamp": "2025-01-15T10:30:40Z"
+        },
+        {
+          "endpoint": "/export",
+          "method": "GET",
+          "status_code": 200,
+          "response_time_ms": 456,
+          "timestamp": "2025-01-15T10:30:41Z"
+        }
+      ]
+    }
+  },
+  "error_summary": {
+    "404_errors": 1,
+    "timeout_errors": 2,
+    "validation_errors": 1,
+    "empty_file_errors": 1
+  },
+  "performance_metrics": {
+    "fastest_response_ms": 45,
+    "slowest_response_ms": 30000,
+    "average_response_ms": 892,
+    "requests_per_second": 0.26
+  },
+  "recommendations": [
+    "Add missing route for /products/import/excel",
+    "Increase SMTP timeout settings or fix SMTP configuration",
+    "Fix Word document export to generate non-empty files",
+    "Improve validation error messages for better UX",
+    "Add retry logic for network timeout scenarios"
+  ]
+}

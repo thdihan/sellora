@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <!-- Background -->
+  <rect width="500" height="500" fill="transparent"/>
+  
+  <!-- Main logo design based on the provided image -->
+  <!-- Teal/Green figure (left) -->
+  <ellipse cx="165" cy="95" rx="15" ry="20" fill="#7fb47f"/>
+  <path d="M125 130 Q140 140 165 145 Q190 150 220 160 Q250 170 280 190 Q310 210 330 240 Q350 270 360 300 Q365 320 360 340 Q350 360 330 370 Q300 375 270 370 Q240 365 210 350 Q180 335 160 310 Q140 285 130 255 Q125 225 130 195 Q135 165 145 140 Z" fill="#7fb47f" opacity="0.8"/>
+  
+  <!-- Blue figure (right) -->
+  <ellipse cx="340" cy="95" rx="15" ry="25" fill="#6ba86b"/>
+  <path d="M375 130 Q360 140 335 145 Q310 150 280 160 Q250 170 220 190 Q190 210 170 240 Q150 270 140 300 Q135 320 140 340 Q150 360 170 370 Q200 375 230 370 Q260 365 290 350 Q320 335 340 310 Q360 285 370 255 Q375 225 370 195 Q365 165 355 140 Z" fill="#6ba86b" opacity="0.8"/>
+  
+  <!-- Orange figure (center) -->
+  <ellipse cx="250" cy="140" rx="12" ry="18" fill="#5a9c5a"/>
+  <path d="M220 175 Q235 185 250 190 Q265 195 280 205 Q295 215 305 230 Q315 245 320 260 Q325 275 320 290 Q315 305 305 315 Q290 325 275 330 Q260 335 245 330 Q230 325 220 315 Q210 305 205 290 Q200 275 205 260 Q210 245 220 230 Q230 215 235 200 Z" fill="#5a9c5a" opacity="0.9"/>
+  
+  <!-- Red/Pink flowing element -->
+  <path d="M180 280 Q200 290 220 295 Q240 300 260 310 Q280 320 300 335 Q320 350 335 370 Q350 390 360 410 Q365 425 360 440 Q350 455 335 465 Q315 475 295 470 Q275 465 255 455 Q235 445 220 430 Q205 415 195 395 Q185 375 180 355 Q175 335 180 315 Q185 295 190 280 Z" fill="#b8dfc2" opacity="0.7"/>
+  
+  <!-- Gradient overlay for depth -->
+  <defs>
+    <radialGradient id="centerGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="250" cy="200" rx="150" ry="100" fill="url(#centerGlow)"/>
+  
+  <!-- Company name -->
+  <text x="250" y="350" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="#5a9c5a">
+    <tspan x="250" dy="0">SELLORA</tspan>
+  </text>
+  
+  <!-- Tagline -->
+  <text x="250" y="390" font-family="Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#7F8C8D">
+    <tspan x="250" dy="0">POWERING TEAMS, DRIVING GROWTH.</tspan>
+  </text>
+  
+  <!-- E-PORICHOY text -->
+  <text x="250" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#7fb47f" letter-spacing="2px">
+    <tspan x="250" dy="0">E - P O R I C H O Y</tspan>
+  </text>
+</svg>

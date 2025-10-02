@@ -1,0 +1,248 @@
+-- Sellora MySQL Data Export
+-- Generated on 2025-09-26 12:15:23
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Data for table `migrations`
+TRUNCATE TABLE `migrations`;
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '0001_01_01_000000_create_users_table', 1),
+(2, '0001_01_01_000001_create_cache_table', 1),
+(3, '0001_01_01_000002_create_jobs_table', 1),
+(4, '2025_01_14_000001_create_location_tracking_table', 1),
+(5, '2025_01_15_000002_create_self_assessments_table', 1),
+(6, '2025_01_15_100001_create_product_categories_table', 1),
+(7, '2025_01_15_100002_create_product_brands_table', 1),
+(8, '2025_01_15_100003_create_product_units_table', 1),
+(9, '2025_01_15_100004_create_warehouses_table', 1),
+(10, '2025_01_15_100005_create_products_table', 1),
+(11, '2025_01_15_100006_create_product_batches_table', 1),
+(12, '2025_01_15_100007_create_stock_balances_table', 1),
+(13, '2025_01_15_100008_create_stock_transactions_table', 1),
+(14, '2025_01_15_100009_create_product_files_table', 1),
+(15, '2025_01_20_000001_add_is_main_to_warehouses_table', 1),
+(16, '2025_01_21_000001_add_warehouse_id_to_products_table', 1),
+(17, '2025_01_21_000002_update_existing_products_warehouse_id', 1),
+(18, '2025_09_13_071119_create_roles_table', 1),
+(19, '2025_09_13_071153_create_orders_table', 1),
+(20, '2025_09_13_071205_create_bills_table', 1),
+(21, '2025_09_13_071205_create_order_files_table', 1),
+(22, '2025_09_13_071206_create_bill_files_table', 1),
+(23, '2025_09_13_071211_create_budgets_table', 1),
+(24, '2025_09_13_071212_create_assessments_table', 1),
+(25, '2025_09_13_071212_create_budget_expenses_table', 1),
+(26, '2025_09_13_071212_create_events_table', 1),
+(27, '2025_09_13_071217_create_locations_table', 1),
+(28, '2025_09_13_071217_create_reports_table', 1),
+(29, '2025_09_13_071218_create_approvals_table', 1),
+(30, '2025_09_13_071218_create_presentations_table', 1),
+(31, '2025_09_13_071218_create_settings_table', 1),
+(32, '2025_09_13_073343_create_expenses_table', 1),
+(33, '2025_09_13_074343_create_visits_table', 1),
+(34, '2025_09_13_074344_update_visits_table_for_requirements', 1),
+(35, '2025_09_13_081202_create_assessment_attempts_table', 1),
+(36, '2025_09_13_081728_create_assessment_results_table', 1),
+(37, '2025_09_13_082817_create_location_visits_table', 1),
+(38, '2025_09_13_094630_create_presentation_views_table', 1),
+(39, '2025_09_13_094645_create_presentation_comments_table', 1),
+(40, '2025_09_13_094645_create_presentation_downloads_table', 1),
+(41, '2025_09_13_094645_create_presentation_shares_table', 1),
+(42, '2025_09_13_161951_create_email_queue_table', 1),
+(43, '2025_09_13_162011_create_email_templates_table', 1),
+(44, '2025_09_13_162025_add_notify_email_to_users_table', 1),
+(45, '2025_09_13_224725_add_brand_fields_to_settings_table', 1),
+(46, '2025_09_14_044927_add_employee_id_to_users_table', 1),
+(47, '2025_09_14_050750_add_deleted_at_to_bills_table', 1),
+(48, '2025_09_14_054404_create_budget_items_table', 1),
+(49, '2025_09_14_073515_create_tax_codes_table', 1),
+(50, '2025_09_14_073528_create_tax_rates_table', 1),
+(51, '2025_09_14_073543_create_tax_rules_table', 1),
+(52, '2025_09_14_073825_create_product_prices_table', 1),
+(53, '2025_09_14_073843_create_media_table', 1),
+(54, '2025_09_14_073900_create_external_product_map_table', 1),
+(55, '2025_09_14_073917_create_sync_log_table', 1),
+(56, '2025_09_14_080512_create_import_jobs_table', 1),
+(57, '2025_09_14_080518_create_audit_logs_table', 1),
+(58, '2025_09_14_080518_create_external_maps_table', 1),
+(59, '2025_09_14_080518_create_import_items_table', 1),
+(60, '2025_09_14_080518_create_import_presets_table', 1),
+(61, '2025_09_14_080519_create_export_jobs_table', 1),
+(62, '2025_09_15_100449_create_tax_heads_table', 1),
+(63, '2025_09_15_100454_create_order_tax_lines_table', 1),
+(64, '2025_09_15_100807_add_tax_columns_to_orders_table', 1),
+(65, '2025_09_15_140252_create_customers_table', 1),
+(66, '2025_09_15_162610_create_notifications_table', 1),
+(67, '2025_09_17_174500_add_order_number_to_orders_table', 1),
+(68, '2025_09_17_182458_add_vat_tax_conditions_to_orders_table', 1),
+(69, '2025_09_18_093148_create_order_items_table', 1),
+(70, '2025_09_18_102053_create_sales_targets_table', 1),
+(71, '2025_09_18_115337_add_employee_profile_fields_to_users_table', 1),
+(72, '2025_09_18_134455_add_missing_fields_to_products_table', 1),
+(73, '2025_09_19_001742_drop_product_lots_table', 1),
+(74, '2025_09_19_100158_add_price_stock_expiration_to_products_table', 1),
+(75, '2025_09_19_114027_rename_client_name_to_customer_name_in_visits_table', 1),
+(76, '2025_09_20_155350_create_suppliers_table', 1),
+(77, '2025_09_20_155351_add_supplier_id_to_products_table', 1),
+(78, '2025_09_20_163434_remove_min_max_stock_levels_from_products_table', 1),
+(79, '2025_09_20_164649_remove_supplier_id_from_products_table', 1);
+
+-- Data for table `product_brands`
+TRUNCATE TABLE `product_brands`;
+INSERT INTO `product_brands` (`id`, `name`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Apple', 'Technology company', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(2, 'Samsung', 'Electronics manufacturer', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(3, 'Nike', 'Sportswear brand', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(4, 'Adidas', 'Athletic apparel', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(5, 'Generic', 'Generic brand', 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11');
+
+-- Data for table `product_categories`
+TRUNCATE TABLE `product_categories`;
+INSERT INTO `product_categories` (`id`, `name`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Electronics', 'Electronic devices and gadgets', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(2, 'Clothing', 'Apparel and fashion items', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(3, 'Books', 'Books and publications', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(4, 'Home & Garden', 'Home improvement and garden items', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(5, 'Food & Beverages', 'Food and drink products', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10');
+
+-- Data for table `product_units`
+TRUNCATE TABLE `product_units`;
+INSERT INTO `product_units` (`id`, `name`, `symbol`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Piece', 'pcs', 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11'),
+(2, 'Kilogram', 'kg', 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11'),
+(3, 'Liter', 'L', 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11'),
+(4, 'Meter', 'm', 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11'),
+(5, 'Box', 'box', 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11');
+
+-- Data for table `products`
+TRUNCATE TABLE `products`;
+INSERT INTO `products` (`id`, `name`, `generic_name`, `composition`, `dosage_form`, `strength`, `sku`, `barcode`, `hsn`, `schedule`, `storage_conditions`, `category_id`, `brand_id`, `unit_id`, `pack_size`, `purchase_price`, `selling_price`, `tax_rate`, `reorder_level`, `reorder_qty`, `allow_negative`, `status`, `created_at`, `updated_at`, `warehouse_id`, `description`, `weight`, `dimensions`, `tax_code`, `is_taxable`, `meta_data`, `price`, `stock`, `expiration_date`) VALUES
+(1, 'iPhone 15 Pro Max', 'Smartphone', 'A17 Pro chip, Titanium build', NULL, NULL, 'IPHONE-15-PM-256', 1234567890123, NULL, NULL, NULL, 1, 1, 1, NULL, 899.99, 1199.99, 20, 10, 50, 0, 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL),
+(2, 'Samsung Galaxy S24 Ultra', 'Smartphone', 'Snapdragon 8 Gen 3, S Pen included', NULL, NULL, 'GALAXY-S24-ULTRA-512', 2345678901234, NULL, NULL, NULL, 1, 2, 1, NULL, 799.99, 1099.99, 20, 15, 40, 0, 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL),
+(3, 'Nike Air Max 270', 'Running Shoes', 'Mesh upper, Air Max sole', NULL, NULL, 'NIKE-AM270-BLK-42', 3456789012345, NULL, NULL, NULL, 2, 3, 1, NULL, 89.99, 149.99, 20, 20, 100, 0, 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL),
+(4, 'Adidas Ultraboost 22', 'Athletic Shoes', 'Primeknit upper, Boost midsole', NULL, NULL, 'ADIDAS-UB22-WHT-41', 4567890123456, NULL, NULL, NULL, 2, 4, 1, NULL, 119.99, 179.99, 20, 15, 80, 0, 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL),
+(5, 'Programming Book Set', 'Educational Books', 'Collection of programming guides', NULL, NULL, 'BOOK-PROG-SET-001', 5678901234567, NULL, NULL, NULL, 3, 5, 5, NULL, 45.99, 79.99, 5, 25, 50, 0, 1, '2025-09-26 18:12:11', '2025-09-26 18:12:11', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL);
+
+-- Data for table `roles`
+TRUNCATE TABLE `roles`;
+INSERT INTO `roles` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Author', 'Full system access (undeletable)', NULL, NULL),
+(2, 'Admin', 'User management, role assignment, full settings', NULL, NULL),
+(3, 'Chairman', 'Org KPIs & summary reports', NULL, NULL),
+(4, 'Director', 'Org KPIs & summary reports', NULL, NULL),
+(5, 'ED', 'Org KPIs & summary reports', NULL, NULL),
+(6, 'GM', 'Final approvals; org-wide dashboard', NULL, NULL),
+(7, 'DGM', 'High-level approvals; consolidated reporting', NULL, NULL),
+(8, 'AGM', 'Set company targets; approve NSM data', NULL, NULL),
+(9, 'NSM', 'Assign teams to ZSM/RSM/ASM; approve orders/bills; presentations', NULL, NULL),
+(10, 'ZSM', 'Regional view; budgets & expenses approvals', NULL, NULL),
+(11, 'RSM', 'Self + ASM + MR, approve ASM/MR, assign ASM targets', NULL, NULL),
+(12, 'ASM', 'Self + MR team, approve MR, assign MR targets', NULL, NULL),
+(13, 'MPO', 'Self data only (sales/bills/visits/budgets/assessments/reports)', NULL, NULL),
+(14, 'MR', 'Self data only (sales/bills/visits/budgets/assessments/reports)', NULL, NULL),
+(15, 'Trainee', 'Self data only (sales/bills/visits/budgets/assessments/reports)', NULL, NULL);
+
+-- Data for table `settings`
+TRUNCATE TABLE `settings`;
+INSERT INTO `settings` (`id`, `type`, `key_name`, `value`, `created_at`, `updated_at`, `is_locked`, `locked_by_role`) VALUES
+(1, 'profile', 'profile_photo_max_size', '\"\\\"2048\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(2, 'profile', 'profile_photo_allowed_types', '\"[\\\"jpg\\\",\\\"jpeg\\\",\\\"png\\\",\\\"gif\\\"]\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(3, 'profile', 'email_notifications_enabled', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(4, 'profile', 'sms_notifications_enabled', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(5, 'profile', 'push_notifications_enabled', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(6, 'profile', 'password_min_length', '\"\\\"8\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(7, 'company', 'company_name', '\"\\\"Sellora\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(8, 'company', 'company_email', '\"\\\"info@sellora.com\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(9, 'company', 'company_phone', '\"\\\"+1-234-567-8900\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(10, 'company', 'company_address', '\"\\\"123 Business Street, City, State 12345\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(11, 'company', 'company_timezone', '\"\\\"UTC\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(12, 'company', 'primary_color', '\"\\\"#007bff\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(13, 'company', 'secondary_color', '\"\\\"#6c757d\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(14, 'company', 'footer_brand_html', '\"\\\"<p>&copy; 2024 Sellora. All rights reserved.<\\\\\\/p>\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(15, 'app', 'app_name', '\"\\\"Sellora\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(16, 'app', 'app_url', '\"\\\"http:\\\\\\/\\\\\\/localhost\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(17, 'app', 'app_debug', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(18, 'app', 'maintenance_mode', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(19, 'app', 'user_registration_enabled', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(20, 'app', 'multi_language_enabled', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(21, 'app', 'api_enabled', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(22, 'app', 'cache_enabled', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(23, 'app', 'session_lifetime', '\"\\\"120\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(24, 'app', 'max_upload_size', '\"\\\"10240\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(25, 'email', 'mail_driver', '\"\\\"smtp\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(26, 'email', 'mail_host', '\"\\\"smtp.mailtrap.io\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(27, 'email', 'mail_port', '\"\\\"587\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(28, 'email', 'mail_username', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(29, 'email', 'mail_password', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(30, 'email', 'mail_encryption', '\"\\\"tls\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(31, 'email', 'mail_from_address', '\"\\\"noreply@sellora.com\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(32, 'email', 'mail_from_name', '\"\\\"Sellora\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(33, 'email', 'order_notifications', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(34, 'email', 'user_notifications', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(35, 'email', 'system_notifications', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(36, 'email', 'marketing_emails', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(37, 'security', 'password_min_length', '\"\\\"8\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(38, 'security', 'password_require_uppercase', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(39, 'security', 'password_require_lowercase', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(40, 'security', 'password_require_numbers', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(41, 'security', 'password_require_symbols', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(42, 'security', 'session_timeout', '\"\\\"30\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(43, 'security', 'max_login_attempts', '\"\\\"5\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(44, 'security', 'lockout_duration', '\"\\\"15\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(45, 'security', 'two_factor_enabled', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(46, 'security', 'ip_whitelist_enabled', '\"false\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(47, 'security', 'allowed_ips', '\"[]\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(48, 'security', 'api_rate_limit', '\"\\\"60\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(49, 'backup', 'backup_enabled', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(50, 'backup', 'backup_frequency', '\"\\\"daily\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(51, 'backup', 'backup_time', '\"\\\"02:00\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(52, 'backup', 'backup_retention_days', '\"\\\"30\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(53, 'backup', 'backup_storage', '\"\\\"local\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(54, 'backup', 'google_analytics_id', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(55, 'backup', 'google_maps_api_key', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(56, 'backup', 'aws_access_key', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(57, 'backup', 'aws_secret_key', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(58, 'backup', 'aws_region', '\"\\\"us-east-1\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(59, 'backup', 'stripe_public_key', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(60, 'backup', 'stripe_secret_key', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(61, 'backup', 'paypal_client_id', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(62, 'backup', 'paypal_client_secret', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(63, 'backup', 'facebook_app_id', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(64, 'backup', 'twitter_api_key', '\"\\\"\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 0, NULL),
+(65, 'updates', 'auto_backup_before_update', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(66, 'updates', 'update_notifications', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(67, 'updates', 'rollback_enabled', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(68, 'updates', 'version_logging', '\"true\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(69, 'updates', 'max_rollback_versions', '\"\\\"5\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(70, 'updates', 'update_timeout', '\"\\\"30\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(71, 'updates', 'current_version', '\"\\\"1.0.0\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(72, 'updates', 'last_update_check', '\"\\\"2025-09-26 18:12:11\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(73, 'tax', 'vat_rate', '\"\\\"15\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin'),
+(74, 'tax', 'tax_rate', '\"\\\"5\\\"\"', '2025-09-26 18:12:11', '2025-09-26 18:12:11', 1, 'Admin');
+
+-- Data for table `tax_codes`
+TRUNCATE TABLE `tax_codes`;
+INSERT INTO `tax_codes` (`id`, `name`, `code`, `description`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Standard VAT', 'VAT_STANDARD', 'Standard Value Added Tax rate for most goods and services (20%)', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(2, 'Reduced VAT', 'VAT_REDUCED', 'Reduced VAT rate for essential goods like food and books (5%)', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(3, 'Zero VAT', 'VAT_ZERO', 'Zero-rated VAT for exports and certain exempt goods (0%)', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(4, 'Luxury Tax', 'LUXURY_TAX', 'Additional tax on luxury goods and high-value items (25%)', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(5, 'Digital Services Tax', 'DIGITAL_TAX', 'Tax on digital services and software licenses (15%)', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(6, 'Export Exempt', 'EXPORT_EXEMPT', 'Tax exemption for export goods (0%)', 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10');
+
+-- Data for table `tax_heads`
+TRUNCATE TABLE `tax_heads`;
+INSERT INTO `tax_heads` (`id`, `name`, `code`, `kind`, `percentage`, `visible_to_client`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 'Standard VAT', 'VAT_STD', 'VAT', 20, 1, 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(2, 'Reduced VAT', 'VAT_RED', 'VAT', 5, 1, 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(3, 'Zero VAT', 'VAT_ZERO', 'VAT', 0, 1, 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(4, 'Advance Income Tax', 'AIT_STD', 'AIT', 3, 0, 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(5, 'Service Tax', 'SRV_TAX', 'OTHER', 15, 1, 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(6, 'Luxury Tax', 'LUX_TAX', 'OTHER', 25, 1, 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10'),
+(7, 'Digital Services Tax', 'DST', 'OTHER', 10, 1, 1, '2025-09-26 18:12:10', '2025-09-26 18:12:10');
+
+-- Data for table `users`
+TRUNCATE TABLE `users`;
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role_id`, `designation`, `photo`, `remember_token`, `created_at`, `updated_at`, `notify_email`, `employee_id`, `bio`, `timezone`, `email_notifications`, `sms_notifications`, `marketing_emails`, `security_alerts`, `last_login_at`) VALUES
+(1, 'Admin User', 'admin@sellora.com', '2025-09-26 18:12:10', '$2y$12$KkGPNi7VHQsTvWkYwLrz0u5zQFWZ2T6NQqXq9zP4oZfbjsJnaEbUO', 2, 'Industrial-Organizational Psychologist', NULL, 'cn3DWdwFME', '2025-09-26 18:12:10', '2025-09-26 18:12:10', 1, NULL, NULL, 'UTC', 1, 0, 0, 1, NULL);
+
+SET FOREIGN_KEY_CHECKS = 1;

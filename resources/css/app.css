@@ -1,0 +1,276 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide sidebar footer elements */
+.sidebar footer, .sidebar .app-footer { display: none !important; }
+
+/* Pagination text-based styling - Optimized for better UX */
+.pagination .page-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: auto !important;
+    height: auto !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    text-decoration: none !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0.375rem !important;
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef !important;
+    border-color: #adb5bd !important;
+    text-decoration: none !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: white !important;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d !important;
+    background-color: #fff !important;
+    border-color: #dee2e6 !important;
+    cursor: not-allowed !important;
+}
+
+.pagination {
+    margin-bottom: 0 !important;
+    gap: 0.25rem !important;
+}
+
+/* Ensure proper spacing between pagination items */
+.pagination .page-item {
+    margin: 0 2px !important;
+}
+
+.pagination .page-item .page-link {
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+.pagination .page-item:not(.disabled) .page-link:hover {
+    color: #0056b3;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+/* Text-based button optimizations - Enhanced UX without icons */
+.btn {
+    font-weight: 500 !important;
+    letter-spacing: 0.025em !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+/* Action buttons with better spacing and typography */
+.btn-sm {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    min-width: 60px !important;
+}
+
+.btn-primary {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7 !important;
+    border-color: #0a58ca !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.25) !important;
+}
+
+.btn-outline-primary:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(13, 110, 253, 0.25) !important;
+}
+
+.btn-outline-secondary:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.25) !important;
+}
+
+.btn-outline-danger:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.25) !important;
+}
+
+.btn-outline-warning:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.25) !important;
+}
+
+/* Dropdown menu items with better text styling */
+.dropdown-item {
+    font-weight: 500 !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa !important;
+    transform: translateX(2px) !important;
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+}
+
+/* Card action buttons */
+.card .btn-group .btn {
+    border-radius: 0.375rem !important;
+    margin: 0 2px !important;
+}
+
+/* Table action buttons */
+.table .btn {
+    margin: 0 2px !important;
+    min-width: 50px !important;
+}
+
+/* Form buttons with better spacing */
+.d-grid .btn {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+/* Modal buttons */
+.modal-footer .btn {
+    min-width: 80px !important;
+    font-weight: 500 !important;
+}
+
+/* Navigation and header buttons */
+.navbar .btn, .card-header .btn {
+    font-weight: 500 !important;
+    letter-spacing: 0.025em !important;
+}
+
+/* Focus states for accessibility */
+.btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+    outline: none !important;
+}
+
+.btn-outline-danger:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.btn-outline-warning:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25) !important;
+}
+
+.btn-outline-secondary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25) !important;
+}
+
+/* Collapsible Menu Styles */
+.menu-parent {
+    position: relative;
+}
+
+.menu-parent > .menu-link {
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-parent > .menu-link::after {
+    content: '▶';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-parent.expanded > .menu-link::after {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 12px;
+    margin-top: -12px;
+    padding-top: 12px;
+}
+
+.submenu.expanded {
+    max-height: 500px;
+    transition: max-height 0.3s ease-in;
+}
+
+.submenu .menu-item {
+    margin: 2px 15px 2px 35px;
+}
+
+.submenu .menu-link {
+    padding: 8px 15px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-left: 0;
+}
+
+.submenu .menu-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(4px);
+    border-left: 3px solid #b8dfc2;
+}
+
+.submenu .menu-link.active {
+    background: rgba(184, 223, 194, 0.2);
+    border-left: 3px solid #b8dfc2;
+    color: #b8dfc2;
+}
+
+/* Single menu items (no children) */
+.menu-single .menu-link {
+    /* Keep existing styles */
+}
+
+/* Menu section styling */
+.menu-section {
+    margin: 15px 0;
+}
+
+.menu-section-divider {
+    margin: 20px 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+}
+
+.menu-section-divider::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}

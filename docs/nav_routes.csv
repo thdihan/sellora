@@ -1,0 +1,156 @@
+label,path,parent_label,component,source_file,guard,module,status
+Dashboard,/dashboard,,DashboardController,routes/web.php,auth,Core,ACTIVE
+Orders,/orders,,OrderController,routes/web.php,auth,Sales,ACTIVE
+Create Order,/orders/create,Orders,OrderController@create,routes/web.php,auth,Sales,ACTIVE
+View Order,/orders/{id},Orders,OrderController@show,routes/web.php,auth,Sales,ACTIVE
+Edit Order,/orders/{id}/edit,Orders,OrderController@edit,routes/web.php,auth,Sales,ACTIVE
+Approve Order,/orders/{id}/approve,Orders,OrderController@approve,routes/web.php,auth,Sales,ACTIVE
+Bills,/bills,,BillController,routes/web.php,auth,Finance,ACTIVE
+Create Bill,/bills/create,Bills,BillController@create,routes/web.php,auth,Finance,ACTIVE
+View Bill,/bills/{id},Bills,BillController@show,routes/web.php,auth,Finance,ACTIVE
+Edit Bill,/bills/{id}/edit,Bills,BillController@edit,routes/web.php,auth,Finance,ACTIVE
+Approve Bill,/bills/{id}/approve,Bills,BillController@approve,routes/web.php,auth,Finance,ACTIVE
+Reject Bill,/bills/{id}/reject,Bills,BillController@reject,routes/web.php,auth,Finance,ACTIVE
+Mark Bill Paid,/bills/{id}/mark-paid,Bills,BillController@markPaid,routes/web.php,auth,Finance,ACTIVE
+Download Bill Attachment,/bills/{id}/download-attachment,Bills,BillController@downloadAttachment,routes/web.php,auth,Finance,ACTIVE
+Remove Bill Attachment,/bills/{id}/remove-attachment,Bills,BillController@removeAttachment,routes/web.php,auth,Finance,ACTIVE
+Expenses,/expenses,,ExpenseController,routes/web.php,auth,Finance,ACTIVE
+Create Expense,/expenses/create,Expenses,ExpenseController@create,routes/web.php,auth,Finance,ACTIVE
+View Expense,/expenses/{id},Expenses,ExpenseController@show,routes/web.php,auth,Finance,ACTIVE
+Edit Expense,/expenses/{id}/edit,Expenses,ExpenseController@edit,routes/web.php,auth,Finance,ACTIVE
+Reports,/reports,,ReportsController,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Sales Reports,/reports/sales,Reports,ReportsController@sales,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Expenses Reports,/reports/expenses,Reports,ReportsController@expenses,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Visits Reports,/reports/visits,Reports,ReportsController@visits,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Budgets Reports,/reports/budgets,Reports,ReportsController@budgets,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Custom Reports,/reports/custom,Reports,ReportsController@custom,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Generate Custom Report,/reports/custom,Reports,ReportsController@generateCustom,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Export Reports,/reports/export,Reports,ReportsController@export,routes/web.php,"auth,role:Admin|Author|Manager|Chairman",Analytics,ACTIVE
+Visits,/visits,,VisitController,routes/web.php,auth,CRM,ACTIVE
+Create Visit,/visits/create,Visits,VisitController@create,routes/web.php,auth,CRM,ACTIVE
+View Visit,/visits/{id},Visits,VisitController@show,routes/web.php,auth,CRM,ACTIVE
+Edit Visit,/visits/{id}/edit,Visits,VisitController@edit,routes/web.php,auth,CRM,ACTIVE
+Budget,/budgets,,BudgetController,routes/web.php,"auth,role:Admin|Manager|Chairman|Finance Manager",Finance,ACTIVE
+Create Budget,/budgets/create,Budget,BudgetController@create,routes/web.php,"auth,role:Admin|Manager|Chairman|Finance Manager",Finance,ACTIVE
+View Budget,/budgets/{id},Budget,BudgetController@show,routes/web.php,"auth,role:Admin|Manager|Chairman|Finance Manager",Finance,ACTIVE
+Edit Budget,/budgets/{id}/edit,Budget,BudgetController@edit,routes/web.php,"auth,role:Admin|Manager|Chairman|Finance Manager",Finance,ACTIVE
+Self Assessment,/self-assessments,,SelfAssessmentController,routes/web.php,auth,HR,ACTIVE
+Create Self Assessment,/self-assessments/create,Self Assessment,SelfAssessmentController@create,routes/web.php,auth,HR,ACTIVE
+View Self Assessment,/self-assessments/{id},Self Assessment,SelfAssessmentController@show,routes/web.php,auth,HR,ACTIVE
+Edit Self Assessment,/self-assessments/{id}/edit,Self Assessment,SelfAssessmentController@edit,routes/web.php,auth,HR,ACTIVE
+Events,/events,,EventController,routes/web.php,auth,CRM,ACTIVE
+Create Event,/events/create,Events,EventController@create,routes/web.php,auth,CRM,ACTIVE
+View Event,/events/{id},Events,EventController@show,routes/web.php,auth,CRM,ACTIVE
+Edit Event,/events/{id}/edit,Events,EventController@edit,routes/web.php,auth,CRM,ACTIVE
+Location Tracker,/locations,,LocationController,routes/web.php,"auth,role:Admin|Manager|Chairman",Tracking,ACTIVE
+Location Settings,/locations/settings,Location Tracker,LocationController@settings,routes/web.php,"auth,role:Admin|Manager|Chairman",Tracking,ACTIVE
+Location Export,/locations/export,Location Tracker,LocationController@export,routes/web.php,"auth,role:Admin|Manager|Chairman",Tracking,ACTIVE
+Products,/products,,ProductController,routes/web.php,auth,Inventory,ACTIVE
+Create Product,/products/create,Products,ProductController@create,routes/web.php,auth,Inventory,ACTIVE
+View Product,/products/{id},Products,ProductController@show,routes/web.php,auth,Inventory,ACTIVE
+Edit Product,/products/{id}/edit,Products,ProductController@edit,routes/web.php,auth,Inventory,ACTIVE
+Product Import Index,/products/import,Products,ProductController@importIndex,routes/web.php,auth,Inventory,ACTIVE
+Product Import SQL,/products/import/sql,Products,ProductController@importSql,routes/web.php,auth,Inventory,ACTIVE
+Product Process SQL Import,/products/import/sql,Products,ProductController@processSqlImport,routes/web.php,auth,Inventory,ACTIVE
+Product Import CSV,/products/import/csv,Products,ProductController@importCsv,routes/web.php,auth,Inventory,ACTIVE
+Product Process CSV Import,/products/import/csv,Products,ProductController@processCsvImport,routes/web.php,auth,Inventory,ACTIVE
+Product Import Excel,/products/import/excel,Products,ProductController@importExcel,routes/web.php,auth,Inventory,ACTIVE
+Product Process Excel Import,/products/import/excel,Products,ProductController@processExcelImport,routes/web.php,auth,Inventory,ACTIVE
+Product Import Full DB,/products/import/full-db,Products,ProductController@importFullDb,routes/web.php,auth,Inventory,ACTIVE
+Product Process Full DB Import,/products/import/full-db,Products,ProductController@processFullDbImport,routes/web.php,auth,Inventory,ACTIVE
+Product Sync Index,/products/sync,Products,ProductController@syncIndex,routes/web.php,auth,Inventory,ACTIVE
+Product Process Sync,/products/sync,Products,ProductController@processSync,routes/web.php,auth,Inventory,ACTIVE
+Inventory,/inventory,,InventoryController,routes/web.php,auth,Inventory,ACTIVE
+Inventory Batches,/inventory/batches,Inventory,InventoryController@batches,routes/web.php,auth,Inventory,ACTIVE
+Inventory Adjustments,/inventory/adjustments,Inventory,InventoryController@adjustments,routes/web.php,auth,Inventory,ACTIVE
+Create Inventory Adjustment,/inventory/adjustments,Inventory,InventoryController@storeAdjustment,routes/web.php,auth,Inventory,ACTIVE
+Inventory Transfers,/inventory/transfers,Inventory,InventoryController@transfers,routes/web.php,auth,Inventory,ACTIVE
+Create Inventory Transfer,/inventory/transfers,Inventory,InventoryController@storeTransfer,routes/web.php,auth,Inventory,ACTIVE
+Inventory Transactions,/inventory/transactions,Inventory,InventoryController@transactions,routes/web.php,auth,Inventory,ACTIVE
+
+Assessments,/assessments,,AssessmentController,routes/web.php,auth,HR,ACTIVE
+Create Assessment,/assessments/create,Assessments,AssessmentController@create,routes/web.php,auth,HR,ACTIVE
+View Assessment,/assessments/{id},Assessments,AssessmentController@show,routes/web.php,auth,HR,ACTIVE
+Edit Assessment,/assessments/{id}/edit,Assessments,AssessmentController@edit,routes/web.php,auth,HR,ACTIVE
+Presentations,/presentations,,PresentationController,routes/web.php,auth,Marketing,ACTIVE
+Create Presentation,/presentations/create,Presentations,PresentationController@create,routes/web.php,auth,Marketing,ACTIVE
+View Presentation,/presentations/{id},Presentations,PresentationController@show,routes/web.php,auth,Marketing,ACTIVE
+Edit Presentation,/presentations/{id}/edit,Presentations,PresentationController@edit,routes/web.php,auth,Marketing,ACTIVE
+Download Presentation,/presentations/{id}/download,Presentations,PresentationController@download,routes/web.php,auth,Marketing,ACTIVE
+Duplicate Presentation,/presentations/{id}/duplicate,Presentations,PresentationController@duplicate,routes/web.php,auth,Marketing,ACTIVE
+Export Presentations,/presentations/export,Presentations,PresentationController@export,routes/web.php,auth,Marketing,ACTIVE
+Auto Reports,/presentations/auto-reports,Presentations,PresentationController@autoReports,routes/web.php,auth,Marketing,ACTIVE
+Generate From Report,/presentations/generate-from-report,Presentations,PresentationController@generateFromReport,routes/web.php,auth,Marketing,ACTIVE
+Presentation Analytics,/presentations/{id}/analytics,Presentations,PresentationAnalyticsController@show,routes/web.php,auth,Marketing,ACTIVE
+Presentation Analytics Data,/presentations/{id}/analytics/data,Presentations,PresentationAnalyticsController@data,routes/web.php,auth,Marketing,ACTIVE
+User Management,/users,,UserController,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Create User,/users/create,User Management,UserController@create,routes/web.php,"auth,role:Author",Admin,ACTIVE
+View User,/users/{id},User Management,UserController@show,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Edit User,/users/{id}/edit,User Management,UserController@edit,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Verify User Email,/users/{id}/verify-email,User Management,UserController@verifyEmail,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Activate User,/users/{id}/activate,User Management,UserController@activate,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Deactivate User,/users/{id}/deactivate,User Management,UserController@deactivate,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Bulk Update Users,/users/bulk-update,User Management,UserController@bulkUpdate,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Tax Management,/tax,,TaxController,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Create Tax,/tax/create,Tax Management,TaxController@create,routes/web.php,"auth,role:Author",Admin,ACTIVE
+View Tax,/tax/{id},Tax Management,TaxController@show,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Edit Tax,/tax/{id}/edit,Tax Management,TaxController@edit,routes/web.php,"auth,role:Author",Admin,ACTIVE
+API Connector,/api-connector,,ApiConnectorController,routes/web.php,"auth,role:Author",Admin,ACTIVE
+API Connector Dashboard,/api-connector/dashboard,API Connector,ApiConnectorController@dashboard,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Get API Config,/api-connector/config/{system},API Connector,ApiConnectorController@getConfig,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Update API Config,/api-connector/config/{system},API Connector,ApiConnectorController@updateConfig,routes/web.php,"auth,role:Author",Admin,ACTIVE
+System Settings,/settings,,SettingsController,routes/web.php,auth,Admin,ACTIVE
+Profile Settings,/settings/profile,System Settings,SettingsController@profile,routes/web.php,auth,Admin,ACTIVE
+Update Profile Settings,/settings/profile,System Settings,SettingsController@updateProfile,routes/web.php,auth,Admin,ACTIVE
+Company Settings,/settings/company,System Settings,SettingsController@company,routes/web.php,auth,Admin,ACTIVE
+Update Company Settings,/settings/company,System Settings,SettingsController@updateCompany,routes/web.php,auth,Admin,ACTIVE
+Application Settings,/settings/app,System Settings,SettingsController@app,routes/web.php,auth,Admin,ACTIVE
+Update Application Settings,/settings/app,System Settings,SettingsController@updateApp,routes/web.php,auth,Admin,ACTIVE
+Email Settings,/settings/email,System Settings,SettingsController@email,routes/web.php,auth,Admin,ACTIVE
+Update Email Settings,/settings/email,System Settings,SettingsController@updateEmail,routes/web.php,auth,Admin,ACTIVE
+Email Test,/settings/email/test,Email Settings,SettingsController@emailTest,routes/web.php,auth,Admin,ACTIVE
+Send Test Email,/settings/email/test/send,Email Settings,SettingsController@sendTestEmail,routes/web.php,auth,Admin,ACTIVE
+Theme Settings,/settings/theme,System Settings,SettingsController@theme,routes/web.php,auth,Admin,ACTIVE
+Update Theme Settings,/settings/theme,System Settings,SettingsController@updateTheme,routes/web.php,auth,Admin,ACTIVE
+Security Settings,/settings/security,System Settings,SettingsController@security,routes/web.php,auth,Admin,ACTIVE
+Update Security Settings,/settings/security,System Settings,SettingsController@updateSecurity,routes/web.php,auth,Admin,ACTIVE
+Backup Settings,/settings/backup,System Settings,SettingsController@backup,routes/web.php,auth,Admin,ACTIVE
+Update Backup Settings,/settings/backup,System Settings,SettingsController@updateBackup,routes/web.php,auth,Admin,ACTIVE
+Update Settings,/settings/updates,System Settings,SettingsController@updates,routes/web.php,auth,Admin,ACTIVE
+Upload Update,/settings/updates/upload,System Settings,SettingsController@uploadUpdate,routes/web.php,auth,Admin,ACTIVE
+Update Update Settings,/settings/updates/settings,System Settings,SettingsController@updateUpdateSettings,routes/web.php,auth,Admin,ACTIVE
+Rollback Version,/settings/updates/rollback/{version},System Settings,SettingsController@rollback,routes/web.php,auth,Admin,ACTIVE
+Clear Cache,/settings/updates/clear-cache,System Settings,SettingsController@clearCache,routes/web.php,auth,Admin,ACTIVE
+View Update Logs,/settings/updates/logs,System Settings,SettingsController@viewLogs,routes/web.php,auth,Admin,ACTIVE
+Update Footer Brand,/settings/footer-brand,System Settings,SettingsController@updateFooterBrand,routes/web.php,auth,Admin,ACTIVE
+Toggle Footer Brand Lock,/settings/footer-brand/toggle-lock,System Settings,SettingsController@toggleFooterBrandLock,routes/web.php,auth,Admin,ACTIVE
+Data Import,/settings/import,,SettingsController@import,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Data Export,/settings/export,,SettingsController@export,routes/web.php,"auth,role:Author",Admin,ACTIVE
+Profile Management,/profile,,ProfileController,routes/web.php,auth,Core,ACTIVE
+Edit Profile,/profile,Profile Management,ProfileController@edit,routes/web.php,auth,Core,ACTIVE
+Update Profile,/profile,Profile Management,ProfileController@update,routes/web.php,auth,Core,ACTIVE
+Delete Profile,/profile,Profile Management,ProfileController@destroy,routes/web.php,auth,Core,ACTIVE
+Login,/login,,AuthenticatedSessionController,routes/auth.php,guest,Auth,ACTIVE
+Register,/register,,RegisteredUserController,routes/auth.php,guest,Auth,ACTIVE
+Forgot Password,/forgot-password,,PasswordResetLinkController,routes/auth.php,guest,Auth,ACTIVE
+Reset Password,/reset-password,,NewPasswordController,routes/auth.php,guest,Auth,ACTIVE
+Email Verification,/email/verify,,EmailVerificationPromptController,routes/auth.php,auth,Auth,ACTIVE
+Logout,/logout,,AuthenticatedSessionController@destroy,routes/auth.php,auth,Auth,ACTIVE
+Store Location,/api/locations,,LocationTrackingController@store,routes/api.php,"auth:sanctum,throttle:6,1",API,ACTIVE
+Latest Locations,/api/locations/latest,,LocationTrackingController@latest,routes/api.php,auth:sanctum,API,ACTIVE
+Location History,/api/locations/history,,LocationTrackingController@history,routes/api.php,auth:sanctum,API,ACTIVE
+API Connector Dashboard Data,/api/connector/dashboard,,ApiConnectorController@dashboard,routes/api.php,auth:sanctum,API,ACTIVE
+Get API Connector Config,/api/connector/config/{system},,ApiConnectorController@getConfig,routes/api.php,auth:sanctum,API,ACTIVE
+Update API Connector Config,/api/connector/config/{system},,ApiConnectorController@updateConfig,routes/api.php,auth:sanctum,API,ACTIVE
+Trigger API Sync,/api/connector/sync,,ApiConnectorController@triggerSync,routes/api.php,auth:sanctum,API,ACTIVE
+Get Sync Status,/api/connector/sync/status/{batchId},,ApiConnectorController@getSyncStatus,routes/api.php,auth:sanctum,API,ACTIVE
+Get Sync Logs,/api/connector/logs,,ApiConnectorController@getLogs,routes/api.php,auth:sanctum,API,ACTIVE
+Retry Failed Sync,/api/connector/retry/{syncLogId},,ApiConnectorController@retrySync,routes/api.php,auth:sanctum,API,ACTIVE
+Test API Connection,/api/connector/test/{system},,ApiConnectorController@testConnection,routes/api.php,auth:sanctum,API,ACTIVE
+Get System Health,/api/connector/health,,ApiConnectorController@getSystemHealth,routes/api.php,auth:sanctum,API,ACTIVE
+Shopify Webhook,/api/webhooks/shopify/{event},,WebhookController@handleShopify,routes/api.php,none,API,ACTIVE
+WooCommerce Webhook,/api/webhooks/woocommerce/{event},,WebhookController@handleWooCommerce,routes/api.php,none,API,ACTIVE
+Magento Webhook,/api/webhooks/magento/{event},,WebhookController@handleMagento,routes/api.php,none,API,ACTIVE
+Custom Webhook,/api/webhooks/custom/{system}/{event},,WebhookController@handleCustom,routes/api.php,none,API,ACTIVE
+Upcoming Events View,/upcoming-events,Events,EventController@upcoming,routes/web.php,auth,CRM,ACTIVE
+Team Map View,/team-map,Location Tracker,LocationController@teamMap,routes/web.php,"auth,role:Admin|Manager|Chairman",Tracking,ACTIVE
