@@ -1,27 +1,41 @@
 @if ($paginator->hasPages())
-<nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="custom-3d-pagination-wrapper">
-    <ul id="menu">
+<nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="flex items-center justify-center space-x-1">
+    <div class="flex items-center space-x-1">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <li><span class="disabled">Previous</span></li>
+            <span class="px-3 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-300 rounded-lg cursor-not-allowed">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                Previous
+            </span>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">Previous</a></li>
+            <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Previous</span>
+            </a>
         @endif
 
         {{-- Pagination Elements --}}
         @foreach ($elements as $element)
             {{-- "Three Dots" Separator --}}
             @if (is_string($element))
-                <li><span class="dots">{{ $element }}</span></li>
+                <span class="px-3 py-2 text-sm font-medium text-gray-500">{{ $element }}</span>
             @endif
 
             {{-- Array Of Links --}}
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
-                        <li><span class="active">{{ $page }}</span></li>
+                        <span class="px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg shadow-sm">
+                            {{ $page }}
+                        </span>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <a href="{{ $url }}" class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-colors duration-200">
+                            {{ $page }}
+                        </a>
                     @endif
                 @endforeach
             @endif
@@ -29,133 +43,21 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">Next</a></li>
+            <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1">
+                <span>Next</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
         @else
-            <li><span class="disabled">Next</span></li>
+            <span class="px-3 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-300 rounded-lg cursor-not-allowed flex items-center space-x-1">
+                <span>Next</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+            </span>
         @endif
-    </ul>
+    </div>
 </nav>
 
-<style>
-@import url(https://fonts.googleapis.com/css?family=PT+Sans);
-
-.custom-3d-pagination-wrapper {
-    text-align: center;
-    margin: 20px 0;
-}
-
-/* Override global pagination styles */
-.custom-3d-pagination-wrapper .pagination,
-.custom-3d-pagination-wrapper .page-item,
-.custom-3d-pagination-wrapper .page-link {
-    all: unset;
-}
-
-#menu {
-    list-style: none;
-    padding: 0 12px;
-    margin: 0;
-    background: #5c8a97;
-    margin: 20px auto;
-    display: inline-block;
-    height: 50px;
-    overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 0px 4px #3b636e, 0px 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-#menu li {
-    margin-left: 10px;
-    display: inline-block;
-    position: relative;
-    bottom: -11px;
-}
-
-#menu li:first-child {
-    margin: 0;
-}
-
-#menu li a {
-    background: #a1d0dd;
-    display: block;
-    border-radius: 3px;
-    padding: 0 12px;
-    color: white;
-    position: relative;
-    text-decoration: none;
-    height: 27px;
-    font: 12px / 27px "PT Sans", Arial, sans-serif;
-    box-shadow: 0px 3px #7fafbc, 0px 4px 5px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-
-#menu li a:hover {
-    background: #bae0ea;
-}
-
-#menu li a:active {
-    background: #bae0ea;
-    bottom: -3px;
-    box-shadow: 0px 0px #7fafbc, 0px 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-#menu li span.active {
-    background: #7fafbc;
-    display: block;
-    border-radius: 3px;
-    padding: 0 12px;
-    color: white;
-    position: relative;
-    text-decoration: none;
-    height: 27px;
-    font: 12px / 27px "PT Sans", Arial, sans-serif;
-    box-shadow: 0px 1px #5c8a97, 0px 2px 3px rgba(0, 0, 0, 0.3);
-    bottom: -3px;
-}
-
-#menu li span.disabled {
-    background: #6b9aa7;
-    display: block;
-    border-radius: 3px;
-    padding: 0 12px;
-    color: #ccc;
-    position: relative;
-    text-decoration: none;
-    height: 27px;
-    font: 12px / 27px "PT Sans", Arial, sans-serif;
-    box-shadow: 0px 2px #4a7580, 0px 3px 4px rgba(0, 0, 0, 0.2);
-    cursor: not-allowed;
-}
-
-#menu li span.dots {
-    background: transparent;
-    display: block;
-    border-radius: 3px;
-    padding: 0 8px;
-    color: white;
-    position: relative;
-    text-decoration: none;
-    height: 27px;
-    font: 12px / 27px "PT Sans", Arial, sans-serif;
-    cursor: default;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    #menu {
-        margin: 20px 10px;
-        padding: 0 8px;
-    }
-    
-    #menu li {
-        margin-left: 5px;
-    }
-    
-    #menu li a,
-    #menu li span {
-        padding: 0 8px;
-        font-size: 11px;
-    }
-}
-</style>
 @endif

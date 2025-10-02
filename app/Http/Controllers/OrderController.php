@@ -38,7 +38,7 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Order::with(['user', 'files']);
+        $query = Order::with(['user', 'files', 'orderItems']);
 
         // Role-based filtering
         if (Auth::user()->role && Auth::user()->role->name === 'MR') {
@@ -51,14 +51,38 @@ class OrderController extends Controller
             $query->where(
                 function ($q) use ($search) {
                     $q->where('order_number', 'like', "%{$search}%")
-                      ->orWhere('customer_name', 'like', "%{$search}%");
+                      ->orWhere('customer_name', 'like', "%{$search}%")
+                      ->orWhere('description', 'like', "%{$search}%");
                 }
             );
         }
 
+        // Status filtering
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Date range filtering
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
         $orders = $query->latest()->paginate(15);
 
-        return view('orders.index', compact('orders'));
+        // Get available statuses for filter dropdown
+        $statuses = [
+            Order::STATUS_PENDING,
+            Order::STATUS_APPROVED,
+            Order::STATUS_FORWARDED,
+            Order::STATUS_COMPLETED,
+            Order::STATUS_CANCELLED
+        ];
+
+        return view('orders.index', compact('orders', 'statuses'));
     }
 
     /**
