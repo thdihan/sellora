@@ -4,362 +4,513 @@
 
 @section('content')
 @if(session('error'))
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <span class="me-2">⚠️</span>
-    {{ session('error') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg mb-6" role="alert">
+    <div class="flex">
+        <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <div class="ml-3">
+            <p class="text-sm">{{ session('error') }}</p>
+        </div>
+    </div>
 </div>
 @endif
-<!-- Welcome Section -->
-@php
-    $roleColors = [
-        'Author' => 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)', // Dark executive
-        'Admin' => 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)', // Red for admin
-        'Chairman' => 'linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)', // Purple for top executive
-        'Director' => 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)', // Deep blue for director
-        'ED' => 'linear-gradient(135deg, #059669 0%, #047857 100%)', // Green for executive director
-        'GM' => 'linear-gradient(135deg, #ea580c 0%, #c2410c 100%)', // Orange for general manager
-        'DGM' => 'linear-gradient(135deg, #0891b2 0%, #0e7490 100%)', // Cyan for deputy GM
-        'AGM' => 'linear-gradient(135deg, #7c2d12 0%, #92400e 100%)', // Brown for assistant GM
-        'NSM' => 'linear-gradient(135deg, #be185d 0%, #9d174d 100%)', // Pink for national sales
-        'ZSM' => 'linear-gradient(135deg, #4338ca 0%, #3730a3 100%)', // Indigo for zonal
-        'RSM' => 'linear-gradient(135deg, #0d9488 0%, #0f766e 100%)', // Teal for regional
-        'ASM' => 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)', // Violet for area
-        'MPO' => 'linear-gradient(135deg, #059669 0%, #047857 100%)', // Emerald for MPO
-        'MR' => 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)', // Blue for medical rep
-        'Trainee' => 'linear-gradient(135deg, #64748b 0%, #475569 100%)', // Gray for trainee
-    ];
-    $currentRoleColor = $roleColors[$role] ?? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-@endphp
-<div class="welcome-card" style="background: {{ $currentRoleColor }}; color: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-    <div class="cloud-container">
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
-        <div class="cloud cloud3"></div>
-        <div class="cloud cloud4"></div>
-        <div class="cloud cloud5"></div>
-    </div>
-    <div class="row align-items-center">
-        <div class="col-md-8">
-            <h2 class="mb-2" style="color: white;">Welcome back, {{ $user->name }}!</h2>
-            <p class="mb-0" style="color: rgba(255, 255, 255, 0.9);">Role: {{ ucfirst($role) }}</p>
-            @if($user->designation)
-                <p class="mb-0" style="color: rgba(255, 255, 255, 0.9);">Designation: {{ $user->designation }}</p>
-            @endif
-            @if($user->employee_id)
-                <p class="mb-0" style="color: rgba(255, 255, 255, 0.9);">Employee ID: {{ $user->employee_id }}</p>
-            @endif
-            <p class="mb-0 mt-2"><small style="color: rgba(255, 255, 255, 0.8);">{{ now()->format('l, F j, Y') }}</small></p>
-        </div>
-        <div class="col-md-4 text-end">
-            <span style="font-size: 4rem; opacity: 0.3; color: white;">👤</span>
-        </div>
-    </div>
-</div>
 
 <!-- Stats Cards -->
-<div class="row">
-    <div class="col-md-3">
-        <div class="stats-card">
-            <div class="d-flex align-items-center">
-                <div class="stats-icon bg-primary text-white me-3">
-                    🛒
-                </div>
-                <div>
-                    <h5 class="mb-0">{{ $stats['total_orders']['total'] ?? 0 }}</h5>
-                    <small class="text-muted">Total Orders</small>
-                    <div class="mt-1">
-                        <small class="text-success">{{ $stats['total_orders']['this_month'] ?? 0 }} this month</small>
-                    </div>
-                </div>
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mb-6">
+    <!-- Customers Card -->
+    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+            <svg class="fill-primary dark:fill-white" width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 0C7.13401 0 4 3.13401 4 7C4 10.866 7.13401 14 11 14C14.866 14 18 10.866 18 7C18 3.13401 14.866 0 11 0ZM11 12C8.23858 12 6 9.76142 6 7C6 4.23858 8.23858 2 11 2C13.7614 2 16 4.23858 16 7C16 9.76142 13.7614 12 11 12Z" fill=""/>
+                <path d="M1.5 16C1.22386 16 1 15.7761 1 15.5C1 11.9101 3.91015 9 7.5 9H14.5C18.0899 9 21 11.9101 21 15.5C21 15.7761 20.7761 16 20.5 16H1.5Z" fill=""/>
+            </svg>
+        </div>
+        <div class="mt-4 flex items-end justify-between">
+            <div>
+                <h4 class="text-title-md font-bold text-black dark:text-white">
+                    3,782
+                </h4>
+                <span class="text-sm font-medium">Customers</span>
             </div>
+            <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
+                4.35%
+                <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z" fill=""/>
+                </svg>
+            </span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="stats-card">
-            <div class="d-flex align-items-center">
-                <div class="stats-icon bg-success text-white me-3">
-                    🧾
-                </div>
-                <div>
-                    <h5 class="mb-0">৳{{ number_format($stats['total_expenses']['total_amount'] ?? 0, 0) }}</h5>
-                    <small class="text-muted">Total Expenses</small>
-                    <div class="mt-1">
-                        <small class="text-info">{{ $stats['total_expenses']['total'] ?? 0 }} items</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="stats-card">
-            <div class="d-flex align-items-center">
-                <div class="stats-icon bg-warning text-white me-3">
-                    💰
-                </div>
-                <div>
-                    <h5 class="mb-0">৳{{ number_format($stats['total_bills']['total_amount'] ?? 0, 2) }}</h5>
-                    <small class="text-muted">Total Bills</small>
-                    <div class="mt-1">
-                        <small class="text-info">{{ $stats['total_bills']['total'] ?? 0 }} bills</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @if($role === 'Admin')
-    <div class="col-md-3">
-        <div class="stats-card">
-            <div class="d-flex align-items-center">
-                <div class="stats-icon bg-danger text-white me-3">
-                    🕒
-                </div>
-                <div>
-                    <h5 class="mb-0">{{ $stats['pending_approvals'] ?? 0 }}</h5>
-                    <small class="text-muted">Pending Approvals</small>
-                    <div class="mt-1">
-                        <small class="text-warning">Requires attention</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @else
-    <div class="col-md-3">
-        <div class="stats-card">
-            <div class="d-flex align-items-center">
-                <div class="stats-icon bg-warning text-white me-3">
-                    📅
-                </div>
-                <div>
-                    <h5 class="mb-0">0</h5>
-                    <small class="text-muted">Scheduled Visits</small>
-                    <div class="mt-1">
-                        <small class="text-muted">Coming soon</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-    <div class="col-md-3">
-        <div class="stats-card">
-            <div class="d-flex align-items-center">
-                <div class="stats-icon bg-info text-white me-3">
-                    📊
-                </div>
-                <div>
-                    <h5 class="mb-0">৳{{ number_format($stats['monthly_budget']['used'] ?? 0, 0) }}</h5>
-                    <small class="text-muted">Budget Used</small>
-                    <div class="mt-1">
-                        <div class="progress" style="height: 4px;">
-                            <div class="progress-bar" style="width: {{ min($stats['monthly_budget']['percentage_used'] ?? 0, 100) }}%"></div>
-                        </div>
-                        <small class="text-muted">{{ number_format($stats['monthly_budget']['percentage_used'] ?? 0, 1) }}% of ৳{{ number_format($stats['monthly_budget']['allocated'] ?? 0, 0) }}</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Sales Target Section -->
-@if(isset($targetData) && $targetData['has_target'])
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">
-                        🎯 My Sales Targets & Achievements
-                    </h5>
-                    <a href="{{ route('sales-targets.index') }}" class="btn btn-outline-primary btn-sm">
-                        View All Targets
-                    </a>
-                </div>
+    <!-- Orders Card -->
+    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+            <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.7531 16.4312C10.3781 16.4312 9.27808 17.5312 9.27808 18.9062C9.27808 20.2812 10.3781 21.3812 11.7531 21.3812C13.1281 21.3812 14.2281 20.2812 14.2281 18.9062C14.2281 17.5656 13.1281 16.4312 11.7531 16.4312Z" fill=""/>
+                <path d="M5.22183 16.4312C3.84683 16.4312 2.74683 17.5312 2.74683 18.9062C2.74683 20.2812 3.84683 21.3812 5.22183 21.3812C6.59683 21.3812 7.69683 20.2812 7.69683 18.9062C7.69683 17.5656 6.59683 16.4312 5.22183 16.4312Z" fill=""/>
+                <path d="M19.0062 0.618744H17.15L14.25 11.1187H2.37498L0.843732 2.29999H0.0624976C-0.312502 2.29999 -0.562502 2.04999 -0.562502 1.67499C-0.562502 1.29999 -0.312502 1.04999 0.0624976 1.04999H1.53123C1.90623 1.04999 2.15623 1.29999 2.15623 1.67499L3.68748 10.4937H13.5L16.0875 1.04999H19.0062C19.3812 1.04999 19.6312 1.29999 19.6312 1.67499C19.6312 2.04999 19.3812 2.29999 19.0062 2.29999V0.618744Z" fill=""/>
+            </svg>
+        </div>
+        <div class="mt-4 flex items-end justify-between">
+            <div>
+                <h4 class="text-title-md font-bold text-black dark:text-white">
+                    5,359
+                </h4>
+                <span class="text-sm font-medium">Orders</span>
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Current Week Target -->
-                    <div class="col-md-4 mb-3">
-                        <div class="target-card">
-                            <div class="target-header">
-                                <h6 class="mb-1">Current Week Target</h6>
-                                <small class="text-muted">Week {{ \App\Models\SalesTarget::getCurrentWeekOfMonth() }} of {{ date('F Y') }}</small>
-                            </div>
-                            
-                            <div class="progress-section">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="text-muted">Progress</span>
-                                    <span class="fw-bold text-primary">{{ $targetData['weekly']['percentage'] }}%</span>
-                                </div>
-                                <div class="progress mb-2" style="height: 8px;">
-                                    <div class="progress-bar bg-primary" style="width: {{ min($targetData['weekly']['percentage'], 100) }}%"></div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <small class="text-muted">Achieved: ৳{{ number_format($targetData['weekly']['actual'], 0) }}</small>
-                                    <small class="text-muted">Target: ৳{{ number_format($targetData['weekly']['target'], 0) }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Current Month Target -->
-                    <div class="col-md-4 mb-3">
-                        <div class="target-card">
-                            <div class="target-header">
-                                <h6 class="mb-1">Current Month Target</h6>
-                                <small class="text-muted">{{ date('F Y') }}</small>
-                            </div>
-                            
-                            <div class="progress-section">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="text-muted">Progress</span>
-                                    <span class="fw-bold text-success">{{ $targetData['monthly']['percentage'] }}%</span>
-                                </div>
-                                <div class="progress mb-2" style="height: 8px;">
-                                    <div class="progress-bar bg-success" style="width: {{ min($targetData['monthly']['percentage'], 100) }}%"></div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <small class="text-muted">Achieved: ৳{{ number_format($targetData['monthly']['actual'], 0) }}</small>
-                                    <small class="text-muted">Target: ৳{{ number_format($targetData['monthly']['target'], 0) }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Current Year Target -->
-                    <div class="col-md-4 mb-3">
-                        <div class="target-card">
-                            <div class="target-header">
-                                <h6 class="mb-1">Current Year Target</h6>
-                                <small class="text-muted">{{ date('Y') }}</small>
-                            </div>
-                            
-                            <div class="progress-section">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="text-muted">Progress</span>
-                                    <span class="fw-bold text-warning">{{ $targetData['yearly']['percentage'] }}%</span>
-                                </div>
-                                <div class="progress mb-2" style="height: 8px;">
-                                    <div class="progress-bar bg-warning" style="width: {{ min($targetData['yearly']['percentage'], 100) }}%"></div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <small class="text-muted">Achieved: ৳{{ number_format($targetData['yearly']['actual'], 0) }}</small>
-                                    <small class="text-muted">Target: ৳{{ number_format($targetData['yearly']['target'], 0) }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <span class="flex items-center gap-1 text-sm font-medium text-meta-5">
+                2.59%
+                <svg class="fill-meta-5" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.64284 7.69237L9.09102 4.33987L10 5.22362L5 10.0849L-8.98488e-07 5.22362L0.908973 4.33987L4.35716 7.69237L4.35716 0.0848701L5.64284 0.0848701L5.64284 7.69237Z" fill=""/>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <!-- Monthly Target Card -->
+    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+            <svg class="fill-primary dark:fill-white" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.1063 18.0469L19.3875 3.23126C19.2157 1.71876 17.9438 0.584381 16.3969 0.584381H5.56878C4.05628 0.584381 2.78441 1.71876 2.57816 3.23126L0.859406 18.0469C0.756281 18.9063 1.03128 19.7313 1.61566 20.3844C2.20003 21.0375 2.99066 21.3813 3.85003 21.3813H18.1157C18.975 21.3813 19.8 21.0031 20.35 20.3844C20.9344 19.7313 21.2094 18.9063 21.1063 18.0469Z" fill=""/>
+            </svg>
+        </div>
+        <div class="mt-4 flex items-end justify-between">
+            <div>
+                <h4 class="text-title-md font-bold text-black dark:text-white">
+                    75.55%
+                </h4>
+                <span class="text-sm font-medium">Monthly Target</span>
             </div>
+            <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
+                4.35%
+                <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z" fill=""/>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <!-- Revenue Card -->
+    <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+            <svg class="fill-primary dark:fill-white" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.18418 8.03751C9.31543 8.03751 11.0686 6.35313 11.0686 4.25626C11.0686 2.15938 9.31543 0.475006 7.18418 0.475006C5.05293 0.475006 3.2998 2.15938 3.2998 4.25626C3.2998 6.35313 5.05293 8.03751 7.18418 8.03751Z" fill=""/>
+                <path d="M15.8124 9.6875C17.6687 9.6875 19.1468 8.24375 19.1468 6.42188C19.1468 4.6 17.6343 3.15625 15.8124 3.15625C13.9905 3.15625 12.478 4.6 12.478 6.42188C12.478 8.24375 13.9905 9.6875 15.8124 9.6875Z" fill=""/>
+                <path d="M15.9843 10.0313H15.6749C14.6437 10.0313 13.6468 10.3406 12.7781 10.8563C11.8593 9.61876 10.3812 8.79376 8.73115 8.79376H5.67178C2.85303 8.82814 0.618652 11.0625 0.618652 13.8469V16.3219C0.618652 17.0406 1.13428 17.5563 1.85303 17.5563H8.97178C9.69053 17.5563 10.2062 17.0406 10.2062 16.3219V15.2906C10.2062 14.2594 10.9593 13.4719 11.9562 13.4719C12.9187 13.4719 13.6718 14.2594 13.6718 15.2906V16.3219C13.6718 17.0406 14.1874 17.5563 14.9062 17.5563H20.4218C21.1405 17.5563 21.6562 17.0406 21.6562 16.3219V14.9844C21.6218 12.0969 19.2124 10.0313 15.9843 10.0313Z" fill=""/>
+            </svg>
+        </div>
+        <div class="mt-4 flex items-end justify-between">
+            <div>
+                <h4 class="text-title-md font-bold text-black dark:text-white">
+                    ৳{{ number_format($stats['total_expenses']['total_amount'] ?? 245000, 0) }}
+                </h4>
+                <span class="text-sm font-medium">Revenue</span>
+            </div>
+            <span class="flex items-center gap-1 text-sm font-medium text-meta-3">
+                2.59%
+                <svg class="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z" fill=""/>
+                </svg>
+            </span>
         </div>
     </div>
 </div>
-@elseif(isset($targetData) && !$targetData['has_target'])
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">🎯 Sales Targets</h5>
-            </div>
-            <div class="card-body">
-                <div class="text-center py-4">
-                    <span style="font-size: 3rem; opacity: 0.3;">🎯</span>
-                    <h6 class="mt-2 text-muted">No sales targets assigned</h6>
-                    <p class="text-muted mb-0">{{ $targetData['message'] ?? 'Contact your manager to get sales targets assigned.' }}</p>
-                    @if(isset($targetData['error']))
-                        <p class="text-danger mt-2">{{ $targetData['error'] }}</p>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
 
 <!-- Charts Section -->
-@if($role === 'Admin')
-<div class="row mt-4">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Monthly Expenses & Bills Trend</h5>
+<div class="grid grid-cols-1 gap-4 md:gap-6 2xl:gap-7.5 mb-6">
+    <!-- Monthly Sales Chart -->
+    <div class="col-span-12 xl:col-span-8">
+        <div class="rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+            <div class="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
+                <div class="flex w-full flex-wrap gap-3 sm:gap-5">
+                    <div class="flex min-w-47.5">
+                        <span class="mt-1 mr-2 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary">
+                            <span class="block h-2.5 w-full max-w-2.5 rounded-full bg-primary"></span>
+                        </span>
+                        <div class="w-full">
+                            <p class="font-semibold text-primary">Monthly Sales</p>
+                            <p class="text-sm font-medium">12.04.2022 - 12.05.2022</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex w-full max-w-45 justify-end">
+                    <div class="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
+                        <button class="rounded bg-white py-1 px-3 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark">
+                            Day
+                        </button>
+                        <button class="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                            Week
+                        </button>
+                        <button class="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                            Month
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <canvas id="expensesChart" height="200"></canvas>
+            <div>
+                <div id="chartOne" class="-ml-5"></div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Orders by Status</h5>
+
+    <!-- Monthly Target Progress -->
+    <div class="col-span-12 xl:col-span-4">
+        <div class="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+            <h4 class="mb-6 text-xl font-semibold text-black dark:text-white">
+                Monthly Target
+            </h4>
+            <div class="mb-2">
+                <p class="flex justify-between text-sm font-medium text-black dark:text-white">
+                    <span> Target you've set for this month </span>
+                    <span> 75.55% </span>
+                </p>
             </div>
-            <div class="card-body">
-                <canvas id="ordersChart" height="200"></canvas>
+            <div class="mb-9">
+                <div class="relative h-2.5 w-full rounded-full bg-stroke dark:bg-strokedark">
+                    <div class="absolute left-0 h-2.5 w-3/4 rounded-full bg-primary"></div>
+                </div>
+            </div>
+            <div class="flex items-center justify-center">
+                <div class="relative">
+                    <svg class="rotate-90 transform" width="150" height="150">
+                        <circle cx="75" cy="75" r="60" stroke="#E5E7EB" stroke-width="8" fill="none" />
+                        <circle cx="75" cy="75" r="60" stroke="#3C50E0" stroke-width="8" fill="none" 
+                                stroke-dasharray="377" stroke-dashoffset="85" stroke-linecap="round" />
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <span class="text-2xl font-bold text-black dark:text-white">75.55%</span>
+                            <p class="text-sm text-gray-500">Target</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-7.5 grid grid-cols-2 gap-4">
+                <div class="text-center">
+                    <p class="mb-1.5 text-sm font-medium text-black dark:text-white">৳30k</p>
+                    <p class="text-xs">You gain today</p>
+                </div>
+                <div class="text-center">
+                    <p class="mb-1.5 text-sm font-medium text-black dark:text-white">৳20k</p>
+                    <p class="text-xs">You gain this month</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-@endif
 
-<!-- Recent Activities -->
-<div class="row mt-4">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Recent Activities</h5>
-            </div>
-            <div class="card-body">
-                @if(count($recentActivities) > 0)
-                    <div class="list-group list-group-flush">
-                        @foreach($recentActivities as $activity)
-                        <div class="list-group-item border-0 px-0">
-                            <div class="d-flex align-items-center">
-                                <div class="activity-icon me-3">
-                                    <i class="fas {{ $activity['icon'] }} text-{{ $activity['color'] }}"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <p class="mb-1">{{ $activity['description'] }}</p>
-                                    <small class="text-muted">{{ $activity['time'] }}</small>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
+<!-- Statistics and Recent Orders Section -->
+<div class="grid grid-cols-1 gap-4 md:gap-6 2xl:gap-7.5 mb-6">
+    <!-- Statistics Chart -->
+    <div class="col-span-12 xl:col-span-4">
+        <div class="rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+            <div class="mb-3 justify-between gap-4 sm:flex">
+                <div>
+                    <h5 class="text-xl font-semibold text-black dark:text-white">
+                        Statistics
+                    </h5>
+                </div>
+                <div>
+                    <div class="relative z-20 inline-block">
+                        <select name="" id="" class="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none">
+                            <option value="">This Week</option>
+                            <option value="">Last Week</option>
+                        </select>
+                        <span class="absolute top-1/2 right-3 z-10 -translate-y-1/2">
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.15786 4.67741 5.23140 4.60386L9.17369 0.896932C9.27666 0.793962 9.43847 0.808672 9.54144 0.911642C9.6444 1.01461 9.6444 1.17642 9.54144 1.27939L5.50141 5.08816C5.22786 5.36171 4.80431 5.36171 4.53076 5.08816L0.47072 1.08816Z" fill="#637381"/>
+                            </svg>
+                        </span>
                     </div>
-                @else
-                    <p class="text-muted mb-0">No recent activities</p>
-                @endif
+                </div>
+            </div>
+            <div>
+                <div id="chartTwo" class="-ml-5 -mb-9"></div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <!-- Quick Actions -->
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Quick Actions</h5>
-            </div>
-            <div class="card-body">
-                <div class="d-grid gap-2">
-                    <a href="{{ route('orders.create') }}" class="btn btn-primary">
-                        New Order
-                    </a>
-                    <a href="{{ route('expenses.create') }}" class="btn btn-success">
-                        🧾 Add Expense
-                    </a>
-                    <a href="{{ route('bills.create') }}" class="btn btn-warning">
-                        💰 Add Bill
-                    </a>
-                    @if($role === 'Admin')
-                    <a href="{{ route('expenses.index') }}?status=pending" class="btn btn-warning">
-                        🕒 Pending Approvals
-                    </a>
-                    @endif
-                    <a href="{{ route('reports.index') }}" class="btn btn-info">
-                        📊 View Reports
-                    </a>
+
+    <!-- Recent Orders -->
+    <div class="col-span-12 xl:col-span-8">
+        <div class="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+            <div class="mb-6 flex justify-between">
+                <div>
+                    <h4 class="text-xl font-semibold text-black dark:text-white">
+                        Recent Orders
+                    </h4>
                 </div>
+                <div>
+                    <button class="flex items-center gap-2 rounded bg-primary py-2 px-4.5 font-medium text-white hover:bg-opacity-80">
+                        <svg class="fill-current" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 7H9V1C9 0.4 8.6 0 8 0C7.4 0 7 0.4 7 1V7H1C0.4 7 0 7.4 0 8C0 8.6 0.4 9 1 9H7V15C7 15.6 7.4 16 8 16C8.6 16 9 15.6 9 15V9H15C15.6 9 16 8.6 16 8C16 7.4 15.6 7 15 7Z" fill=""/>
+                        </svg>
+                        View All
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
+                    <div class="p-2.5 xl:p-5">
+                        <h5 class="text-sm font-medium uppercase xsm:text-base">
+                            Product
+                        </h5>
+                    </div>
+                    <div class="p-2.5 text-center xl:p-5">
+                        <h5 class="text-sm font-medium uppercase xsm:text-base">
+                            Category
+                        </h5>
+                    </div>
+                    <div class="p-2.5 text-center xl:p-5">
+                        <h5 class="text-sm font-medium uppercase xsm:text-base">
+                            Price
+                        </h5>
+                    </div>
+                    <div class="hidden p-2.5 text-center sm:block xl:p-5">
+                        <h5 class="text-sm font-medium uppercase xsm:text-base">
+                            Status
+                        </h5>
+                    </div>
+                    <div class="hidden p-2.5 text-center sm:block xl:p-5">
+                        <h5 class="text-sm font-medium uppercase xsm:text-base">
+                            Actions
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-5">
+                    <div class="flex items-center gap-3 p-2.5 xl:p-5">
+                        <div class="flex-shrink-0">
+                            <img src="https://via.placeholder.com/48x48/3C50E0/FFFFFF?text=IP" alt="Product" class="h-12 w-12 rounded-full" />
+                        </div>
+                        <p class="hidden text-black dark:text-white sm:block">
+                            iPhone 15 Pro
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
+                        <p class="text-black dark:text-white">Electronics</p>
+                    </div>
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
+                        <p class="text-meta-3">৳89,999</p>
+                    </div>
+                    <div class="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                        <p class="inline-flex rounded-full bg-success bg-opacity-10 py-1 px-3 text-sm font-medium text-success">
+                            Delivered
+                        </p>
+                    </div>
+                    <div class="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                        <button class="hover:text-primary">
+                            <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z" fill=""/>
+                                <path d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z" fill=""/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-5">
+                    <div class="flex items-center gap-3 p-2.5 xl:p-5">
+                        <div class="flex-shrink-0">
+                            <img src="https://via.placeholder.com/48x48/10B981/FFFFFF?text=MB" alt="Product" class="h-12 w-12 rounded-full" />
+                        </div>
+                        <p class="hidden text-black dark:text-white sm:block">
+                            MacBook Pro
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
+                        <p class="text-black dark:text-white">Electronics</p>
+                    </div>
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
+                        <p class="text-meta-3">৳189,999</p>
+                    </div>
+                    <div class="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                        <p class="inline-flex rounded-full bg-warning bg-opacity-10 py-1 px-3 text-sm font-medium text-warning">
+                            Pending
+                        </p>
+                    </div>
+                    <div class="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                        <button class="hover:text-primary">
+                            <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z" fill=""/>
+                                <path d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z" fill=""/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-5">
+                    <div class="flex items-center gap-3 p-2.5 xl:p-5">
+                        <div class="flex-shrink-0">
+                            <img src="https://via.placeholder.com/48x48/F59E0B/FFFFFF?text=AP" alt="Product" class="h-12 w-12 rounded-full" />
+                        </div>
+                        <p class="hidden text-black dark:text-white sm:block">
+                            AirPods Pro
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
+                        <p class="text-black dark:text-white">Accessories</p>
+                    </div>
+                    <div class="flex items-center justify-center p-2.5 xl:p-5">
+                        <p class="text-meta-3">৳24,999</p>
+                    </div>
+                    <div class="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                        <p class="inline-flex rounded-full bg-danger bg-opacity-10 py-1 px-3 text-sm font-medium text-danger">
+                            Cancelled
+                        </p>
+                    </div>
+                    <div class="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                        <button class="hover:text-primary">
+                            <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z" fill=""/>
+                                <path d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z" fill=""/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                                    <div>
+                                        <div class="fw-medium">Jane Smith</div>
+                                        <small class="text-muted">jane@example.com</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <small class="text-muted">5 hours ago</small>
+                                </td>
+                                <td>
+                                    <span class="fw-medium">৳1,89,999</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-warning-subtle text-warning">Processing</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light rounded p-2 me-3">
+                                            <i class="fas fa-headphones text-success"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-medium">AirPods Pro</div>
+                                            <small class="text-muted">SKU: #9012</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="fw-medium">Mike Johnson</div>
+                                        <small class="text-muted">mike@example.com</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <small class="text-muted">1 day ago</small>
+                                </td>
+                                <td>
+                                    <span class="fw-medium">৳24,999</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-danger-subtle text-danger">Cancelled</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Demographics Section -->
+<div class="grid grid-cols-1 gap-4 md:gap-6 2xl:gap-7.5 mb-6">
+    <div class="col-span-12 xl:col-span-6">
+        <div class="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+            <div class="mb-6">
+                <h4 class="text-xl font-semibold text-black dark:text-white">
+                    Customer Demographics
+                </h4>
+            </div>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div class="col-span-1">
+                    <!-- World Map Placeholder -->
+                    <div class="flex h-60 items-center justify-center rounded-sm bg-gray-2 dark:bg-meta-4">
+                        <div class="text-center">
+                            <svg class="mx-auto mb-3 h-12 w-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd" />
+                            </svg>
+                            <p class="text-gray-500 dark:text-gray-400">World Map</p>
+                            <p class="text-sm text-gray-400 dark:text-gray-500">Customer distribution by location</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-1">
+                    <div class="flex h-full flex-col justify-center space-y-4">
+                        <div>
+                            <div class="mb-2 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="mr-2 h-3 w-3 rounded-full bg-primary"></div>
+                                    <span class="text-sm font-medium text-black dark:text-white">USA</span>
+                                </div>
+                                <span class="text-sm font-medium text-black dark:text-white">79%</span>
+                            </div>
+                            <div class="h-1 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                                <div class="h-1 rounded-full bg-primary" style="width: 79%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="mr-2 h-3 w-3 rounded-full bg-secondary"></div>
+                                    <span class="text-sm font-medium text-black dark:text-white">France</span>
+                                </div>
+                                <span class="text-sm font-medium text-black dark:text-white">23%</span>
+                            </div>
+                            <div class="h-1 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                                <div class="h-1 rounded-full bg-secondary" style="width: 23%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="col-span-12 xl:col-span-6">
+        <div class="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+            <div class="mb-6">
+                <h4 class="text-xl font-semibold text-black dark:text-white">
+                    Quick Actions
+                </h4>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button class="flex flex-col items-center justify-center rounded-sm border border-stroke bg-gray-2 p-4 hover:bg-gray-3 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-meta-4">
+                    <svg class="mb-2 h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <span class="text-sm font-medium text-black dark:text-white">Create Order</span>
+                </button>
+                <button class="flex flex-col items-center justify-center rounded-sm border border-stroke bg-gray-2 p-4 hover:bg-gray-3 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-meta-4">
+                    <svg class="mb-2 h-8 w-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span class="text-sm font-medium text-black dark:text-white">View Reports</span>
+                </button>
+                <button class="flex flex-col items-center justify-center rounded-sm border border-stroke bg-gray-2 p-4 hover:bg-gray-3 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-meta-4">
+                    <svg class="mb-2 h-8 w-8 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span class="text-sm font-medium text-black dark:text-white">Add Expense</span>
+                </button>
+                <button class="flex flex-col items-center justify-center rounded-sm border border-stroke bg-gray-2 p-4 hover:bg-gray-3 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-meta-4">
+                    <svg class="mb-2 h-8 w-8 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-sm font-medium text-black dark:text-white">Pending Approvals</span>
+                </button>
             </div>
         </div>
     </div>
@@ -368,287 +519,6 @@
 
 @push('styles')
 <style>
-    .welcome-card {
-        position: relative;
-        color: white;
-        padding: 2rem;
-        border-radius: 20px;
-        margin-bottom: 2rem;
-        box-shadow: 
-            0 20px 40px rgba(0,0,0,0.15),
-            0 10px 20px rgba(0,0,0,0.1),
-            inset 0 1px 0 rgba(255,255,255,0.2);
-        transform: perspective(1000px) rotateX(2deg);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    .welcome-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(
-            135deg,
-            rgba(255,255,255,0.1) 0%,
-            rgba(255,255,255,0.05) 50%,
-            rgba(0,0,0,0.05) 100%
-        );
-        border-radius: inherit;
-        pointer-events: none;
-    }
-    
-    .welcome-card::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            45deg,
-            transparent 30%,
-            rgba(255,255,255,0.1) 50%,
-            transparent 70%
-        );
-        transform: translateX(-100%);
-        transition: transform 0.6s ease;
-        pointer-events: none;
-    }
-    
-    .welcome-card:hover {
-        transform: perspective(1000px) rotateX(0deg) translateY(-5px);
-        box-shadow: 
-            0 30px 60px rgba(0,0,0,0.2),
-            0 15px 30px rgba(0,0,0,0.15),
-            inset 0 1px 0 rgba(255,255,255,0.3);
-    }
-    
-    .welcome-card:hover::after {
-        transform: translateX(100%);
-    }
-    
-    @keyframes welcomeGlow {
-        0%, 100% {
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.15),
-                0 10px 20px rgba(0,0,0,0.1),
-                inset 0 1px 0 rgba(255,255,255,0.2),
-                0 0 20px rgba(255,255,255,0.1);
-        }
-        50% {
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.15),
-                0 10px 20px rgba(0,0,0,0.1),
-                inset 0 1px 0 rgba(255,255,255,0.2),
-                0 0 30px rgba(255,255,255,0.2);
-        }
-    }
-    
-    .welcome-card {
-        animation: welcomeGlow 4s ease-in-out infinite;
-    }
-    
-    .welcome-card .row {
-        position: relative;
-        z-index: 2;
-    }
-    
-    .welcome-card h2,
-    .welcome-card p {
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-    
-    .welcome-card .cloud-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 1;
-        opacity: 0.15;
-        border-radius: inherit;
-    }
-    
-    .welcome-card .cloud {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50px;
-        opacity: 0.6;
-    }
-    
-    .welcome-card .cloud:before,
-    .welcome-card .cloud:after {
-        content: '';
-        position: absolute;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50px;
-    }
-    
-    .welcome-card .cloud1 {
-        width: 80px;
-        height: 30px;
-        top: 20%;
-        left: -80px;
-        animation: cloudMove1 25s linear infinite;
-    }
-    
-    .welcome-card .cloud1:before {
-        width: 40px;
-        height: 40px;
-        top: -20px;
-        left: 10px;
-    }
-    
-    .welcome-card .cloud1:after {
-        width: 60px;
-        height: 35px;
-        top: -15px;
-        right: 10px;
-    }
-    
-    .welcome-card .cloud2 {
-        width: 60px;
-        height: 25px;
-        top: 60%;
-        left: -60px;
-        animation: cloudMove2 30s linear infinite;
-        animation-delay: -5s;
-    }
-    
-    .welcome-card .cloud2:before {
-        width: 30px;
-        height: 30px;
-        top: -15px;
-        left: 15px;
-    }
-    
-    .welcome-card .cloud2:after {
-        width: 45px;
-        height: 28px;
-        top: -12px;
-        right: 8px;
-    }
-    
-    .welcome-card .cloud3 {
-        width: 100px;
-        height: 35px;
-        top: 10%;
-        left: -100px;
-        animation: cloudMove3 35s linear infinite;
-        animation-delay: -10s;
-    }
-    
-    .welcome-card .cloud3:before {
-        width: 50px;
-        height: 50px;
-        top: -25px;
-        left: 20px;
-    }
-    
-    .welcome-card .cloud3:after {
-        width: 70px;
-        height: 40px;
-        top: -20px;
-        right: 15px;
-    }
-    
-    .welcome-card .cloud4 {
-        width: 70px;
-        height: 28px;
-        top: 80%;
-        left: -70px;
-        animation: cloudMove4 28s linear infinite;
-        animation-delay: -15s;
-    }
-    
-    .welcome-card .cloud4:before {
-        width: 35px;
-        height: 35px;
-        top: -18px;
-        left: 12px;
-    }
-    
-    .welcome-card .cloud4:after {
-        width: 50px;
-        height: 30px;
-        top: -15px;
-        right: 12px;
-    }
-    
-    .welcome-card .cloud5 {
-        width: 90px;
-        height: 32px;
-        top: 40%;
-        left: -90px;
-        animation: cloudMove5 32s linear infinite;
-        animation-delay: -20s;
-    }
-    
-    .welcome-card .cloud5:before {
-        width: 45px;
-        height: 45px;
-        top: -22px;
-        left: 18px;
-    }
-    
-    .welcome-card .cloud5:after {
-        width: 65px;
-        height: 38px;
-        top: -18px;
-        right: 12px;
-    }
-    
-    @keyframes cloudMove1 {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(100vw + 80px));
-        }
-    }
-    
-    @keyframes cloudMove2 {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(100vw + 60px));
-        }
-    }
-    
-    @keyframes cloudMove3 {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(100vw + 100px));
-        }
-    }
-    
-    @keyframes cloudMove4 {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(100vw + 70px));
-        }
-    }
-    
-    @keyframes cloudMove5 {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(100vw + 90px));
-        }
-    }
-
     .stats-card {
         background: white;
         padding: 1.5rem;
@@ -734,25 +604,325 @@
 @endpush
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@if($role === 'Admin')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-    // Expenses & Bills Chart
+// Monthly Sales Chart
+const chartOneOptions = {
+    series: [{
+        name: 'Sales',
+        data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45]
+    }],
+    chart: {
+        type: 'bar',
+        height: 335,
+        toolbar: {
+            show: false,
+        },
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded',
+            borderRadius: 2,
+        },
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    stroke: {
+        show: true,
+        width: 4,
+        colors: ['transparent'],
+    },
+    xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        axisBorder: {
+            show: false,
+        },
+        axisTicks: {
+            show: false,
+        },
+    },
+    legend: {
+        show: false,
+    },
+    grid: {
+        strokeDashArray: 5,
+        xaxis: {
+            lines: {
+                show: false,
+            },
+        },
+        yaxis: {
+            lines: {
+                show: true,
+            },
+        },
+    },
+    fill: {
+        opacity: 1,
+        colors: ['#3C50E0'],
+    },
+    tooltip: {
+        style: {
+            fontSize: '12px',
+        },
+        y: {
+            formatter: function (val) {
+                return '৳' + val + 'k';
+            },
+        },
+    },
+};
+
+const chartOne = new ApexCharts(document.querySelector('#chartOne'), chartOneOptions);
+chartOne.render();
+
+// Statistics Chart
+const chartTwoOptions = {
+    series: [{
+        name: 'Product One',
+        data: [168, 385, 201, 298, 187, 195, 291],
+    }, {
+        name: 'Product Two',
+        data: [120, 115, 160, 145, 165, 132, 140],
+    }],
+    chart: {
+        type: 'area',
+        height: 310,
+        toolbar: {
+            show: false,
+        },
+    },
+    colors: ['#5750f1', '#0FADCF'],
+    dataLabels: {
+        enabled: false,
+    },
+    stroke: {
+        curve: 'smooth',
+        width: 2,
+    },
+    grid: {
+        strokeDashArray: 5,
+        xaxis: {
+            lines: {
+                show: false,
+            },
+        },
+        yaxis: {
+            lines: {
+                show: true,
+            },
+        },
+    },
+    fill: {
+        type: 'gradient',
+        gradient: {
+            shade: 'dark',
+            type: 'vertical',
+            shadeIntensity: 0,
+            gradientToColors: undefined,
+            inverseColors: false,
+            opacityFrom: 0.4,
+            opacityTo: 0,
+            stops: [0, 50, 100],
+            colorStops: [],
+        },
+    },
+    xaxis: {
+        categories: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
+        axisBorder: {
+            show: false,
+        },
+        axisTicks: {
+            show: false,
+        },
+    },
+    legend: {
+        show: false,
+    },
+    tooltip: {
+        x: {
+            show: false,
+        },
+    },
+};
+
+const chartTwo = new ApexCharts(document.querySelector('#chartTwo'), chartTwoOptions);
+chartTwo.render();
+
+// Monthly Target Progress Chart
+const chartThreeOptions = {
+    series: [75.55],
+    chart: {
+        type: 'radialBar',
+        height: 335,
+    },
+    plotOptions: {
+        radialBar: {
+            hollow: {
+                size: '60%',
+            },
+            dataLabels: {
+                name: {
+                    fontSize: '18px',
+                    color: '#64748B',
+                },
+                value: {
+                    fontSize: '24px',
+                    fontWeight: '600',
+                    color: '#1C2434',
+                },
+                total: {
+                    show: true,
+                    label: 'Target',
+                    formatter: function (w) {
+                        return '75.55%';
+                    },
+                },
+            },
+        },
+    },
+    colors: ['#3C50E0'],
+    labels: ['Target'],
+    legend: {
+        show: false,
+    },
+};
+
+const chartThree = new ApexCharts(document.querySelector('#chartThree'), chartThreeOptions);
+chartThree.render();
+
+// Monthly Sales Chart (Chart.js fallback)
+const monthlySalesCtx = document.getElementById('monthlySalesChart')?.getContext('2d');
+if (monthlySalesCtx) {
+    const monthlySalesChart = new Chart(monthlySalesCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Sales',
+                data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56],
+                backgroundColor: '#3b82f6',
+                borderRadius: 4,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#f1f5f9'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return '৳' + value + 'K';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Monthly Target Progress Chart (Doughnut)
+const targetProgressCtx = document.getElementById('targetProgressChart')?.getContext('2d');
+if (targetProgressCtx) {
+    const targetProgressChart = new Chart(targetProgressCtx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [75.55, 24.45],
+                backgroundColor: ['#3b82f6', '#e5e7eb'],
+                borderWidth: 0,
+                cutout: '80%'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
+// Statistics Chart (Area Chart)
+const statisticsCtx = document.getElementById('statisticsChart')?.getContext('2d');
+if (statisticsCtx) {
+    const statisticsChart = new Chart(statisticsCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Revenue',
+                data: [30, 40, 35, 50, 49, 60],
+                borderColor: '#8b5cf6',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#f1f5f9'
+                    }
+                }
+            }
+        }
+    });
+}
+
+@if($role === 'Admin')
+// Expenses & Bills Chart (keeping existing functionality)
+if (document.getElementById('expensesChart')) {
     const expensesCtx = document.getElementById('expensesChart').getContext('2d');
     const expensesChart = new Chart(expensesCtx, {
         type: 'line',
         data: {
-            labels: {!! json_encode($chartData['months']) !!},
+            labels: {!! json_encode($chartData['months'] ?? []) !!},
             datasets: [{
                 label: 'Monthly Expenses',
-                data: {!! json_encode($chartData['expenses']) !!},
+                data: {!! json_encode($chartData['expenses'] ?? []) !!},
                 borderColor: '#28a745',
                 backgroundColor: 'rgba(40, 167, 69, 0.1)',
                 tension: 0.4,
                 fill: false
             }, {
                 label: 'Monthly Bills',
-                data: {!! json_encode($chartData['bills']) !!},
+                data: {!! json_encode($chartData['bills'] ?? []) !!},
                 borderColor: '#ffc107',
                 backgroundColor: 'rgba(255, 193, 7, 0.1)',
                 tension: 0.4,
@@ -773,15 +943,17 @@
                     beginAtZero: true,
                     ticks: {
                         callback: function(value) {
-                            return '$' + value.toLocaleString();
+                            return '৳' + value.toLocaleString();
                         }
                     }
                 }
             }
         }
     });
+}
 
-    // Orders Chart
+// Orders Chart (keeping existing functionality)
+if (document.getElementById('ordersChart')) {
     const ordersCtx = document.getElementById('ordersChart').getContext('2d');
     const ordersChart = new Chart(ordersCtx, {
         type: 'doughnut',
@@ -812,6 +984,7 @@
             }
         }
     });
-</script>
+}
 @endif
+</script>
 @endpush
